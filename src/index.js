@@ -1,5 +1,6 @@
 import { Client, GatewayIntentBits, REST, Routes } from "discord.js"
 import dotenv from "dotenv"
+import { KeepAlive } from "./server"
 
 dotenv.config()
 
@@ -49,4 +50,5 @@ client.on("interactionCreate", async (interaction) => {
 
 })
 
+KeepAlive()
 client.login(TOKEN)
