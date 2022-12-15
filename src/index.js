@@ -1,6 +1,6 @@
-import { Client, GatewayIntentBits, REST, Routes } from "discord.js"
-import dotenv from "dotenv"
-import { KeepAlive } from "./server"
+const { Client, GatewayIntentBits, REST, Routes } = require("discord.js")
+const dotenv = require("dotenv")
+const KeepAlive = require("./server")
 
 dotenv.config()
 
