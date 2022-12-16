@@ -59,6 +59,21 @@ client.on("interactionCreate", async (interaction) => {
 		const img = await getCatImg("meme")
 		await interaction.reply(img) 
 	}
+
+	if (interaction.commandName === "catcasual") {
+		const img = await getCatImg("casual")
+		await interaction.reply(img) 
+	}
+
+	if (interaction.commandName === "catemotion") {
+		const img = await getCatImg("emotion")
+		await interaction.reply(img) 
+	}
+	
+	if (interaction.commandName === "catlove") {
+		const img = await getCatImg("love")
+		await interaction.reply(img) 
+	}
 })
 
 client.on("messageCreate", (message) => {

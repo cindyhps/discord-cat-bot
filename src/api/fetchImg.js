@@ -14,17 +14,12 @@ Airtable.configure({
 var base = Airtable.base(AIRTABLE_BASE_ID)
 
 export const getCatImg = async (category) => {
-	let records = await base("cat-pictures")
-		.select({
-			maxRecords: 10,
-			view: "Grid view",
-		})
-		.all()
+	let records = await base("cat-pictures").select().all()
 
 	const urls = records
 		.map((record) => record.fields)
 		.filter((item) => item.category === category)
 		.map((item) => item.url)
 
-	return urls[Math.floor(Math.random() * urls.length)] 
+	return urls[Math.floor(Math.random() * urls.length)]
 }
