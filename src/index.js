@@ -19,12 +19,28 @@ const commands = [
 		description: "Replies with a casual cat picture",
 	},
 	{
+		name: "catgif",
+		description: "Replies with cat gif",
+	},
+	{
 		name: "catmeme",
 		description: "Replies with a cat meme",
 	},
 	{
-		name: "catgif",
-		description: "Replies with cat gif",
+		name: "catcasual",
+		description: "Replies with a casual cat picture",
+	},
+	{
+		name: "catemotion",
+		description: "Replies with a emotional cat picture",
+	},
+	{
+		name: "catmental",
+		description: "Replies with a cat image about mental health",
+	},
+	{
+		name: "catlove",
+		description: "Replies with a in love cat picture",
 	},
 ]
 
@@ -57,22 +73,22 @@ client.on("interactionCreate", async (interaction) => {
 
 	if (interaction.commandName === "catmeme") {
 		const img = await getCatImg("meme")
-		await interaction.reply(img) 
+		await interaction.reply(img)
 	}
 
 	if (interaction.commandName === "catcasual") {
 		const img = await getCatImg("casual")
-		await interaction.reply(img) 
+		await interaction.reply(img)
 	}
 
 	if (interaction.commandName === "catemotion") {
 		const img = await getCatImg("emotion")
-		await interaction.reply(img) 
+		await interaction.reply(img)
 	}
-	
+
 	if (interaction.commandName === "catlove") {
 		const img = await getCatImg("love")
-		await interaction.reply(img) 
+		await interaction.reply(img)
 	}
 })
 
