@@ -31,8 +31,8 @@ const commands = [
     description: "Replies with a casual cat picture",
   },
   {
-    name: "catemotion",
-    description: "Replies with a emotional cat picture",
+    name: "catfeels",
+    description: "Responds with a picture of a cat that expresses any feeling",
   },
   {
     name: "catmental",
@@ -81,8 +81,8 @@ client.on("interactionCreate", async (interaction) => {
     await interaction.reply(img)
   }
 
-  if (interaction.commandName === "catemotion") {
-    const img = await getCatImg("emotion")
+  if (interaction.commandName === "catfeels") {
+    const img = await getCatImg("feels")
     await interaction.reply(img)
   }
 
