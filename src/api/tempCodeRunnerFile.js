@@ -21,10 +21,12 @@ export const getCatImg = async (category) => {
 		})
 		.all()
 
-	const urls = records
-		.map((record) => record.fields)
-		.filter((item) => item.category === category)
-		.map((item) => item.url)
-
-	return urls[Math.floor(Math.random() * urls.length)] 
+		console.log(records)
 }
+
+// [Math.floor(Math.random() * resultList.length)]
+
+// const resultList = records
+// .map((record) => record.fields)
+// .filter((item) => item.category === category)
+// .map((item) => item.url)

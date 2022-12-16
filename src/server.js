@@ -1,13 +1,11 @@
-const express = require("express")
+import Express from "express"
 
-const app = express()
+const app = Express()
 
 app.all("/", (req, res) => {
 	res.send("+ Bot is running")
 })
 
-function KeepAlive() {
+export function KeepAlive() {
   app.listen(3000, () => console.log('Server is Ready!'));
 }
-
-module.exports = KeepAlive
