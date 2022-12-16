@@ -1,6 +1,7 @@
 const { Client, GatewayIntentBits, REST, Routes } = require("discord.js")
 const dotenv = require("dotenv")
 const KeepAlive = require("./server")
+const { getCatImg } = require("./api/fetchImg")
 
 dotenv.config()
 
@@ -19,7 +20,11 @@ const rest = new REST({ version: "10" }).setToken(TOKEN)
 const commands = [
   {
     name: "cat",
-    description: "Replies with cat picture",
+    description: "Replies with a casual cat picture",
+  },
+  {
+    name: "catmeme",
+    description: "Replies with a cat meme",
   },
   {
     name: "catgif",
@@ -52,6 +57,12 @@ client.on("interactionCreate", async (interaction) => {
 
   if (interaction.commandName === "catgif") {
     await interaction.reply("https://media.tenor.com/7r-BGEoIohkAAAAC/meme-cat.gif")
+  }
+
+  if (interaction.commandName === "catmeme") {
+    await getCatImg().then( async (res) => {
+      await interaction.reply(res)
+    })
   }
 })
 
