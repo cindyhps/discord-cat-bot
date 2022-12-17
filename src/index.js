@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 
 import { KeepAlive } from "./server.js"
 import { getCatImg } from "./api/fetchImg.js"
+import { getTenorGIF } from "./api/fetchGIF.js"
 import { commands } from "./commands.js"
 
 // Load secrets (Only for local env)
@@ -34,31 +35,31 @@ const rest = new REST({ version: "10" }).setToken(TOKEN)
 
 // On bot logged in / connected server
 client.on("ready", () => {
+  client.channels.fetch("")
   console.log(`LOGGED IN AS ${client.user.tag}!`)
 })
 
 // On slash command used
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return
-
   const cmd = interaction.commandName
 
   if (cmd === "cat") {
     const img = await getCatImg()
     await interaction.reply(img)
   } else if (cmd === "catgif") {
-    await interaction.reply("https://media.tenor.com/7r-BGEoIohkAAAAC/meme-cat.gif")
+    const gif = await getTenorGIF()
+    await interaction.reply(gif)
   } else {
     const img = await getCatImg(cmd)
     await interaction.reply(img)
   }
 })
 
-
 // On message create
 client.on("messageCreate", (message) => {
   if (message.content === ".cat") {
-    message.reply("https://i.pinimg.com/736x/57/15/52/57155231eef543cd4169e58f33b7d243.jpg")
+    message.reply("𝓜𝓮𝓸𝔀")
   }
 })
 
