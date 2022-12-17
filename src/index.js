@@ -35,8 +35,7 @@ const rest = new REST({ version: "10" }).setToken(TOKEN)
 
 // On bot logged in / connected server
 client.on("ready", () => {
-  client.channels.fetch("")
-  console.log(`LOGGED IN AS ${client.user.tag}!`)
+  console.log(`+ LOGGED IN AS ${client.user.tag}!`)
 })
 
 // On slash command used
