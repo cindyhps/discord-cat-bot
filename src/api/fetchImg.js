@@ -15,11 +15,17 @@ var base = Airtable.base(AIRTABLE_BASE_ID)
 
 export const getCatImg = async (category) => {
 	let records = await base("cat-pictures").select().all()
+	let URLs = []
 
-	const urls = records
+	if (category) {
+		URLs = records
 		.map((record) => record.fields)
 		.filter((item) => item.category === category)
 		.map((item) => item.url)
+	} else {
+		URLs = records.map((record) => record.fields).map((item) => item.url)
+	}
 
-	return urls[Math.floor(Math.random() * urls.length)]
+
+	return URLs[Math.floor(Math.random() * URLs.length)]
 }
