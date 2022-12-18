@@ -47,7 +47,7 @@ client.on("interactionCreate", async (interaction) => {
     const img = await getCatImg()
     await interaction.reply(img)
   } else if (cmd === "catgif") {
-    const gif = await getTenorGIF()
+    const gif = await getTenorGIF(interaction.options.get("search"))
     await interaction.reply(gif)
   } else {
     const img = await getCatImg(cmd)

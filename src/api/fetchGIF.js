@@ -7,11 +7,14 @@ dotenv.config()
 const TENOR_API_KEY = process.env.TENOR_API_KEY
 const CLIENT_KEY = process.env.CLIENT_KEY
 const TENOR_LIMIT = "50" // 20 default & 50 max
-const SEARCH = "cat"
-const RANDOM = true
+const RANDOM = true // random results
 
-export const getTenorGIF = async () => {
-  let url = ""
+export const getTenorGIF = async (searchValue) => {
+
+  // check is user enter a search value
+  const SEARCH = searchValue !== null ? "cat" + searchValue.value : "cat"
+  let responseUrl = ""
+
   var tenorURL =
     "https://tenor.googleapis.com/v2/search?q=" +
     SEARCH +
@@ -27,10 +30,10 @@ export const getTenorGIF = async () => {
   await axios.get(tenorURL).then((response) => {
     const urlList = response.data.results
 
-    url = urlList[Math.floor(Math.random() * urlList.length)].url
+    responseUrl = urlList[Math.floor(Math.random() * urlList.length)].url
   }).catch((e) => console.log("err on fetchin gif: ", e))
 
-  return url
+  return responseUrl
 }
 
 

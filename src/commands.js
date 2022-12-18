@@ -1,12 +1,22 @@
+import { SlashCommandBuilder } from 'discord.js'
+
+const catGif = new SlashCommandBuilder()
+  .setName("catgif")
+  .setDescription("Replies with a cat gif")
+  .addStringOption((subCommand) =>
+    subCommand
+      .setName("search")
+      .setDescription("Replies with gif according to the specified search.")
+  )
+
+console.log(typeof (catGif))
+
 export const commands = [
   {
     name: "cat",
     description: "Replies with a random cat picture",
   },
-  {
-    name: "catgif",
-    description: "Replies with a cat gif",
-  },
+  catGif,
   {
     name: "catmeme",
     description: "Replies with a cat meme",
