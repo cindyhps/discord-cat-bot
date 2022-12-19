@@ -5,70 +5,67 @@ import dotenv from "dotenv"
 dotenv.config()
 
 const TENOR_API_KEY = process.env.TENOR_API_KEY
-const CLIENT_KEY = process.env.CLIENT_KEY
+const TENOR_CLIENT_KEY = process.env.TENOR_CLIENT_KEY
 const GIPHY_API_KEY = process.env.GIPHY_API_KEY
 
-const fetchTenor = async (SEARCH) => {
-  const gifUrls = []
-  const RANDOM = true
-  const TENOR_LIMIT = searchValue !== null ? "20" : "50" // default: 20 & max: 50
+// TENOR
+const fetchTenor = async (SEARCH, RANDOM) => {
+	let gifUrls = []
+	const LIMIT = SEARCH !== null ? "20" : "50" // default: 20 & max: 50
 
-  const tenorURL =
-    "https://tenor.googleapis.com/v2/search?q=" +
-    SEARCH +
-    "&key=" +
-    TENOR_API_KEY +
-    "&client_key=" +
-    CLIENT_KEY +
-    "&limit=" +
-    TENOR_LIMIT +
-    "&random=" +
-    RANDOM
+	const URL =
+		"https://tenor.googleapis.com/v2/search?q=" +
+		SEARCH +
+		"&key=" +
+		TENOR_API_KEY +
+		"&client_key=" +
+		TENOR_CLIENT_KEY +
+		"&limit=" +
+		LIMIT +
+		"&random=" +
+		RANDOM
 
+	await axios
+		.get(URL)
+		.then((response) => {
+			gifUrls = response.data.results.map((gif) => gif.url)
+		})
+		.catch((e) => console.log("err while fetchin from tenor: ", e))
 
-  // GET TENOR GIFS
-  await axios.get(tenorURL).then((response) => {
-    gifUrls = response.data.results.map((gif) => gif.url)
-  }).catch((e) => console.log("err on fetchin from tenor: ", e))
-
-  return gifUrls
+	return gifUrls
 }
 
+// GIPHY
 const fetchGiphy = async (SEARCH) => {
-  let gifUrls = []
-  const GIPHY_LIMIT = "25" // default: 25 & max: ?
+	let gifUrls = []
+	const LIMIT = "25" // default: 25 & max: ?
 
-  const giphyURL =
-    "https://api.giphy.com/v1/gifs/search?api_key=" +
-    GIPHY_API_KEY +
-    "&q=" +
-    SEARCH +
-    "&limit=" +
-    GIPHY_LIMIT +
-    "&offset=0&rating=g&lang=en"
+	const URL =
+		"https://api.giphy.com/v1/gifs/search?api_key=" +
+		GIPHY_API_KEY +
+		"&q=" +
+		SEARCH +
+		"&limit=" +
+		LIMIT +
+		"&offset=0&rating=g&lang=en"
 
-  // GET GIPHY GIFS
-  await axios.get(giphyURL).then((response) => {
-    gifUrls = response.data["data"].map((gif) => gif.images.original.url)
-    console.log(gifData)
-  }).catch((e) => console.log("err on fetchin from giphy: ", e))
+	await axios
+		.get(URL, {headers: { "Accept-Encoding": "gzip,deflate,compress" } })
+		.then((response) => {
+      gifUrls = response.data.data.map((gif) => gif.images.original.url)
+    })
+		.catch((e) => console.log("err while fetchin from giphy: ", e))
 
-  return gifUrls
+	return gifUrls
 }
 
-export const getGIF = async (searchValue) => {
-  let responseUrl = ""
+export const getGIF = async (q) => {
+	const SEARCH = q ? "cat" + " " + q.value : "cat"
+	const RANDOM = q ? true : false
 
-  const SEARCH = searchValue !== null ? "cat kitty" + " " + searchValue.value : "cat"
+	const giphyUrls = await fetchGiphy(SEARCH)
+	const tenorUrls = await fetchTenor(SEARCH, RANDOM)
+	const urlList = tenorUrls.concat(giphyUrls)
 
-  const giphyUrls = await fetchGiphy(SEARCH)
-  const tenorUrls = await fetchTenor(SEARCH)
-  const urlList = tenorUrls.concat(giphyUrls)
-
-  console.log(urlList)
-
-  responseUrl = urlList[Math.floor(Math.random() * urlList.length)]
-
-  return responseUrl
+	return urlList[Math.floor(Math.random() * urlList.length)]
 }
-

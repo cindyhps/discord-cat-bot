@@ -66,4 +66,4 @@ client.on("messageCreate", (message) => {
 await client.login(TOKEN)
 
 // Keep server alive
-// KeepAlive()
+KeepAlive()
