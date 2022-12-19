@@ -1,7 +1,7 @@
 
 # Share cat images & GIF's
 
-![ ]("https://github.com/Kaosc/discord-cat-bot/assets/cat_128.png")
+![ ]("https://raw.githubusercontent.com/Kaosc/discord-cat-bot/master/assets/cat_128.png")
 ### [Add to Server](https://discord.com/api/oauth2/authorize?client_id=1052869011366477844&permissions=277025459200&scope=bot%20applications.commands)
 
 ### Commands List
@@ -33,4 +33,4 @@
 * The bot uses [Giphy](https://giphy.com/) & [Tenor](https://tenor.com/) API services to provide GIF's.
 * When searching for a gif only enter the related value (e.g /catgif sad).
 
-![ ]("https://github.com/Kaosc/discord-cat-bot/assets/badge.gif")
+![ ]("https://raw.githubusercontent.com/Kaosc/discord-cat-bot/master/assets/badge.gif")
