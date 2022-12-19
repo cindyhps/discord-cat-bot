@@ -21,7 +21,7 @@ export const getCatImg = async (category) => {
   if (category) {
     URLs = records
       .map((record) => record.fields)
-      .filter((item) => item.category === category)
+      .filter((item) => item.category.includes(category))
       .map((item) => item.url)
   } else {
     URLs = records.map((record) => record.fields).map((item) => item.url)

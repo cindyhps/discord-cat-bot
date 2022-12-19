@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 
 import { KeepAlive } from "./server.js"
 import { getCatImg } from "./api/fetchImg.js"
-import { getTenorGIF } from "./api/fetchGIF.js"
+import { getGIF } from "./api/fetchGIF.js"
 import { commands } from "./commands.js"
 
 // Load secrets (Only for local env)
@@ -47,7 +47,7 @@ client.on("interactionCreate", async (interaction) => {
     const img = await getCatImg()
     await interaction.reply(img)
   } else if (cmd === "catgif") {
-    const gif = await getTenorGIF(interaction.options.get("search"))
+    const gif = await getGIF(interaction.options.get("search"))
     await interaction.reply(gif)
   } else {
     const img = await getCatImg(cmd)
@@ -66,4 +66,4 @@ client.on("messageCreate", (message) => {
 await client.login(TOKEN)
 
 // Keep server alive
-KeepAlive()
+// KeepAlive()

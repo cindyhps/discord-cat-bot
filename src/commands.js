@@ -6,10 +6,8 @@ const catGif = new SlashCommandBuilder()
   .addStringOption((subCommand) =>
     subCommand
       .setName("search")
-      .setDescription("Replies with gif according to the specified search.")
+      .setDescription("Replies with a gif according to the specified search.")
   )
-
-console.log(typeof (catGif))
 
 export const commands = [
   {

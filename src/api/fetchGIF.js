@@ -6,16 +6,14 @@ dotenv.config()
 
 const TENOR_API_KEY = process.env.TENOR_API_KEY
 const CLIENT_KEY = process.env.CLIENT_KEY
-const TENOR_LIMIT = "50" // 20 default & 50 max
-const RANDOM = true // random results
+const GIPHY_API_KEY = process.env.GIPHY_API_KEY
 
-export const getTenorGIF = async (searchValue) => {
+const fetchTenor = async (SEARCH) => {
+  const gifUrls = []
+  const RANDOM = true
+  const TENOR_LIMIT = searchValue !== null ? "20" : "50" // default: 20 & max: 50
 
-  // check is user enter a search value
-  const SEARCH = searchValue !== null ? "cat" + searchValue.value : "cat"
-  let responseUrl = ""
-
-  var tenorURL =
+  const tenorURL =
     "https://tenor.googleapis.com/v2/search?q=" +
     SEARCH +
     "&key=" +
@@ -27,14 +25,50 @@ export const getTenorGIF = async (searchValue) => {
     "&random=" +
     RANDOM
 
-  await axios.get(tenorURL).then((response) => {
-    const urlList = response.data.results
 
-    responseUrl = urlList[Math.floor(Math.random() * urlList.length)].url
-  }).catch((e) => console.log("err on fetchin gif: ", e))
+  // GET TENOR GIFS
+  await axios.get(tenorURL).then((response) => {
+    gifUrls = response.data.results.map((gif) => gif.url)
+  }).catch((e) => console.log("err on fetchin from tenor: ", e))
+
+  return gifUrls
+}
+
+const fetchGiphy = async (SEARCH) => {
+  let gifUrls = []
+  const GIPHY_LIMIT = "25" // default: 25 & max: ?
+
+  const giphyURL =
+    "https://api.giphy.com/v1/gifs/search?api_key=" +
+    GIPHY_API_KEY +
+    "&q=" +
+    SEARCH +
+    "&limit=" +
+    GIPHY_LIMIT +
+    "&offset=0&rating=g&lang=en"
+
+  // GET GIPHY GIFS
+  await axios.get(giphyURL).then((response) => {
+    gifUrls = response.data["data"].map((gif) => gif.images.original.url)
+    console.log(gifData)
+  }).catch((e) => console.log("err on fetchin from giphy: ", e))
+
+  return gifUrls
+}
+
+export const getGIF = async (searchValue) => {
+  let responseUrl = ""
+
+  const SEARCH = searchValue !== null ? "cat kitty" + " " + searchValue.value : "cat"
+
+  const giphyUrls = await fetchGiphy(SEARCH)
+  const tenorUrls = await fetchTenor(SEARCH)
+  const urlList = tenorUrls.concat(giphyUrls)
+
+  console.log(urlList)
+
+  responseUrl = urlList[Math.floor(Math.random() * urlList.length)]
 
   return responseUrl
 }
-
-
 
