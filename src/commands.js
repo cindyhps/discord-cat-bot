@@ -43,4 +43,8 @@ export const commands = [
     name: "catreact",
     description: "Replies with a reaction picture of a cat",
   },
+  {
+    name: "catedit",
+    description: "Replies with a edited cat picture",
+  },
 ]
