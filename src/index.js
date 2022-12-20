@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, REST, Routes } from "discord.js"
+import { Client, GatewayIntentBits, REST, Routes, ActivityType } from "discord.js"
 import dotenv from "dotenv"
 
 import { KeepAlive } from "./server.js"
@@ -36,6 +36,8 @@ const rest = new REST({ version: "10" }).setToken(TOKEN)
 // On bot logged in / connected server
 client.on("ready", () => {
   console.log(`+ LOGGED IN AS ${client.user.tag}!`)
+  client.user.setUsername("𝐂𝐚𝐭")
+  client.user.setActivity("the Catnips", { type: ActivityType.Watching })
 })
 
 // On slash command used
