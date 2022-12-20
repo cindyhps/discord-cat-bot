@@ -25,6 +25,7 @@
 | /catcasual    | Replies with a casual cat picture |
 | /catlove      | Replies with a in love cat picture |
 | /catreact     | Replies with a reaction picture of a cat |
+| /catedit      | Replies with a edited cat picture |
 
 #### Additional Notes:
 
