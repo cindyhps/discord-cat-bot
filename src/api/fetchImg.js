@@ -19,7 +19,7 @@ var base = Airtable.base(AIRTABLE_BASE_ID)
 //   filterByFormula:`SEARCH(${'"' + category + '"'}, category)`,
 // }
 
-// // TODO filter by user entered tags
+// // TODO filter by tag
 // // https://support.airtable.com/docs/formula-field-reference
 // const filterByTags = {
 //   fields: ["url"],
@@ -27,7 +27,7 @@ var base = Airtable.base(AIRTABLE_BASE_ID)
 // }
 
 export const getCatImg = async (category) => {
-  // if category is not specifed returns all records. //TODO limit unspecifed calls.
+  // if category is not specifed returns all records. //TODO limit unspecified  calls.
   let records = await base("cat-pictures")
     .select({
       fields: ["url"],
@@ -36,8 +36,6 @@ export const getCatImg = async (category) => {
         : ""
     })
     .all();
-
-  console.log(records.length);
 
   return records.map((record) => record.fields.url)[
     random.int(0, records.length)
