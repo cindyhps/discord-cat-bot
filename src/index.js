@@ -36,6 +36,7 @@ const rest = new REST({ version: "10" }).setToken(TOKEN)
 // On bot logged in / connected server
 client.on("ready", () => {
   console.log(`+ LOGGED IN AS ${client.user.tag}!`)
+  client.user.setAvatar("../assets/cat_square_christmas.png")
   client.user.setUsername("𝐂𝐚𝐭")
   client.user.setActivity("the Catnips", { type: ActivityType.Watching })
 })
