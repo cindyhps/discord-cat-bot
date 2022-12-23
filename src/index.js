@@ -43,18 +43,22 @@ client.on("ready", () => {
 // On slash command used
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return
-  const cmd = interaction.commandName
 
-  if (cmd === "cat") {
-    const img = await getCatImg()
-    await interaction.reply(img)
-  } else if (cmd === "catgif") {
-    const gif = await getGIF(interaction.options.get("search"))
-    await interaction.reply(gif)
-  } else {
-    const img = await getCatImg(cmd)
-    await interaction.reply(img)
+  try {
+    if (interaction.commandName === "cat") {
+      const img = await getCatImg()
+      await interaction.reply({ content: img, ephemeral: false })
+    } else if (interaction.commandName === "catgif") {
+      const gif = await getGIF(interaction.options.get("search"))
+      await interaction.reply({ content: gif, ephemeral: false })
+    } else {
+      const img = await getCatImg(interaction.commandName)
+      await interaction.reply({ content: img, ephemeral: false })
+    }
+  } catch (e) {
+    console.error(e)
   }
+
 })
 
 // On message create
