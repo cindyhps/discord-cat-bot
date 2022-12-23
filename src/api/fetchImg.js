@@ -1,43 +1,73 @@
 import Airtable from "airtable"
 import dotenv from "dotenv"
 import random from "random"
+
 // Load secrets (Only for local env)
 dotenv.config()
 
 const AIRTABLE_KEY = process.env.AIRTABLE_KEY
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID
 
+const categorys = [
+	"catmemelove",
+	"catcasual",
+	"catfeels",
+	"catmental",
+	"catlove",
+	"catreact",
+	"catedit",
+]
+
 Airtable.configure({
-  endpointUrl: "https://api.airtable.com",
-  apiKey: AIRTABLE_KEY,
+	endpointUrl: "https://api.airtable.com",
+	apiKey: AIRTABLE_KEY,
 })
 
 var base = Airtable.base(AIRTABLE_BASE_ID)
 
-// const filterByCategory = {
-//   fields: ["url"],
-//   filterByFormula:`SEARCH(${'"' + category + '"'}, category)`,
-// }
+// https://support.airtable.com/docs/formula-field-reference
 
-// // TODO filter by tag
-// // https://support.airtable.com/docs/formula-field-reference
-// const filterByTags = {
-//   fields: ["url"],
-//   filterByFormula:`SEARCH(${'"' + category + '"'}, category)`,
-// }
+export const getCatImg = async (value) => {
+  console.log(value)
 
-export const getCatImg = async (category) => {
-  // if category is not specifed returns all records. //TODO limit unspecified  calls.
-  let records = await base("cat-pictures")
-    .select({
-      fields: ["url"],
-      filterByFormula: category
-        ? `SEARCH(${'"' + category + '"'}, category)`
-        : ""
-    })
-    .all();
+	let records = []
+  
+	const callType = categorys.includes(value) 
+    ? "category" 
+    : value 
+      ? "tag" 
+      : undefined
 
-  return records.map((record) => record.fields.url)[
-    random.int(0, records.length)
-  ];
-};
+	if (callType === "category") {
+
+		// BY CATEGORY
+		records = await base("cat-pictures")
+			.select({
+				fields: ["url"],
+				filterByFormula: `SEARCH(${'"' + value + '"'}, category)`,
+			})
+			.all()
+	} else if (callType === "tag") {
+		// BY TAGS
+		records = await base("cat-pictures")
+			.select({
+				fields: ["url"],
+				filterByFormula: `SEARCH(${'"' + value.value + '"'}, tags)`,
+			})
+			.all()
+	} else {
+		// ALL
+		records = await base("cat-pictures")
+			.select({
+				fields: ["url"],
+			})
+			.all()
+	}
+
+
+  if (records.length === 0) {
+    return "Sorry, I couldn't find any images for that tag."
+  } else {
+    return records.map((record) => record.fields.url)[random.int(0, records.length)]
+  }
+}
