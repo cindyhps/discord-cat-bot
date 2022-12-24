@@ -5,6 +5,7 @@ import { KeepAlive } from "./server.js"
 import { getCatImg } from "./api/fetchImg.js"
 import { getGIF } from "./api/fetchGIF.js"
 import { commands } from "./commands.js"
+import info from "./info.json" assert { type: "json" }
 
 // Load secrets (Only for local env)
 dotenv.config()
@@ -41,7 +42,7 @@ const rest = new REST({ version: "10" }).setToken(TOKEN)
 client.on("ready", () => {
   console.log(`+ LOGGED IN AS ${client.user.tag}!`)
   client.user.setUsername("𝐂𝐚𝐭")
-  client.user.setActivity("the Catnips", { type: ActivityType.Watching })
+  client.user.setActivity(`the ${info.totalImg} Catnips`, { type: ActivityType.Watching })
 })
 
 // On slash command used

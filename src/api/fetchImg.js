@@ -1,7 +1,7 @@
 import Airtable from "airtable"
 import dotenv from "dotenv"
 import random from "random"
-
+import fs from "fs"
 // Load secrets (Only for local env)
 dotenv.config()
 
@@ -59,6 +59,10 @@ export const getCatImg = async (value) => {
         fields: ["url"],
       })
       .all()
+      fs.writeFile('./src/info.json', JSON.stringify({totalImg: records.length}), (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+      });
   }
 
   if (records.length > 0) {
