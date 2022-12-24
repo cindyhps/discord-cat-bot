@@ -28,10 +28,7 @@ const rest = new REST({ version: "10" }).setToken(TOKEN)
   // Load application commands
   ; (async () => {
     try {
-      console.log("+ Refreshing commands.")
-
       await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands })
-
       console.log("+ Successfully reloaded commands.")
     } catch (e) {
       console.error(e)
@@ -40,15 +37,14 @@ const rest = new REST({ version: "10" }).setToken(TOKEN)
 
 // On bot logged in / connected server
 client.on("ready", () => {
-  console.log(`+ LOGGED IN AS ${client.user.tag}!`)
-  client.user.setUsername("𝐂𝐚𝐭")
-  client.user.setActivity(`the ${info.totalImg} Catnips`, { type: ActivityType.Watching })
+  console.log(`+ Bot logged in`)
+  client.user.setActivity(`${info.totalImg} Catnips`, { type: ActivityType.Watching })
 })
 
 // On slash command used
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return
-  console.log(interaction.options.get("search"))
+
   try {
     if (interaction.commandName === "cat") {
       const img = await getCatImg(interaction.options.get("tag"))
