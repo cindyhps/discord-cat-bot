@@ -11,13 +11,14 @@ const AIRTABLE_KEY = process.env.AIRTABLE_KEY
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID
 
 const categorys = [
-  "catmemelove",
   "catcasual",
   "catfeels",
   "catmental",
-  "catlove",
   "catreact",
-  "catedit",
+  "catlove",
+  "catmemelove",
+  "catmeme",
+  "catedit"
 ]
 
 Airtable.configure({
@@ -73,7 +74,7 @@ export const getCatImg = async (value) => {
 
 const saveTotalImg = (value) => {
   if (value !== info.totalImg) {
-    fs.writeFile('./src/info.json', JSON.stringify({totalImg: value}), (err) => {
+    fs.writeFile('./src/info.json', JSON.stringify({ totalImg: value }), (err) => {
       if (err) throw err;
       console.log('+ Total images saved : ', value);
     });

@@ -38,7 +38,7 @@ const rest = new REST({ version: "10" }).setToken(TOKEN)
 // On bot logged in / connected server
 client.on("ready", () => {
   console.log(`+ Bot logged in`)
-  client.user.setActivity(`${info.totalImg} Catnips`, { type: ActivityType.Watching })
+  client.user.setActivity(`the ${info.totalImg} Catnips`, { type: ActivityType.Watching })
 })
 
 // On slash command used
