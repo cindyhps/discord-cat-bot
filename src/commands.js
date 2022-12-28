@@ -11,11 +11,11 @@ const catGif = new SlashCommandBuilder()
 
 const cat = new SlashCommandBuilder()
 	.setName("cat")
-	.setDescription("Replies with a random cat picture")
+	.setDescription("Replies with a random cat image or gif")
 	.addStringOption((subCommand) =>
 		subCommand
 			.setName("tag")
-			.setDescription("Replies with a img according to the specified tag.")
+			.setDescription("Replies with a image or gif according to the specified tag.")
 	)
 
 export const commands = [
@@ -30,27 +30,27 @@ export const commands = [
 		description: "Replies with a in love cat meme",
 	},
 	{
+		name: "catlove",
+		description: "Replies with a in love cat image or gif",
+	},
+	{
 		name: "catcasual",
-		description: "Replies with a casual cat picture",
+		description: "Replies with a casual cat image or gif",
 	},
 	{
 		name: "catfeels",
-		description: "Responds with a picture of a cat that expresses any feeling",
-	},
-	{
-		name: "catmental",
-		description: "Replies with a cat image about mental health",
-	},
-	{
-		name: "catlove",
-		description: "Replies with a in love cat picture",
+		description: "Responds with a image or gif of a cat that expresses any feeling",
 	},
 	{
 		name: "catreact",
-		description: "Replies with a reaction picture of a cat",
+		description: "Replies with a reaction image or gif of a cat",
+	},
+	{
+		name: "catmental",
+		description: "Replies with a cat image or gif about mental health",
 	},
 	{
 		name: "catedit",
-		description: "Replies with a edited cat picture",
+		description: "Replies with a edited cat image or gif",
 	},
 ]

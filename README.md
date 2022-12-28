@@ -17,16 +17,16 @@
 
 | Command | Description |
 | ------------- |:-------------:|
-| /cat                | Replies with a random cat picture |
-| /cat [tag: "value"] | (Experimental) Replies with a img according to the specified tag. |
-| /catmental          | Replies with a cat image about mental health |
+| /cat                | Replies with a random cat image or gif |
+| /cat [tag: "value"] | (Experimental) Replies with a image or gif according to the specified tag. |
 | /catmeme            | Replies with a cat meme |
 | /catmemelove        | Replies with a in love cat meme |
-| /catfeels           | Responds with a picture of a cat that expresses any feeling |
-| /catcasual          | Replies with a casual cat picture |
-| /catlove            | Replies with a in love cat picture |
-| /catreact           | Replies with a reaction picture of a cat |
-| /catedit            | Replies with a edited cat picture |
+| /catlove            | Replies with a in love cat image or gif |
+| /catcasual          | Replies with a casual cat image or gif |
+| /catfeels           | Responds with a image or gif of a cat that expresses any feeling |
+| /catreact           | Replies with a reaction image or gif of a cat |
+| /catmental          | Replies with a cat image or gif about mental health |
+| /catedit            | Replies with a edited cat image or gif |
 
 #### Additional Notes:
 
