@@ -2,7 +2,7 @@ import { Client, GatewayIntentBits, REST, Routes, ActivityType } from "discord.j
 import dotenv from "dotenv"
 
 import { KeepAlive } from "./server.js"
-import { getCatImg } from "./api/fetchImg.js"
+import { getCatImg, readTotalImg } from "./api/fetchImg.js"
 import { getGIF } from "./api/fetchGIF.js"
 import { commands } from "./commands.js"
 import info from "./info.json" assert { type: "json" }
@@ -38,7 +38,7 @@ const rest = new REST({ version: "10" }).setToken(TOKEN)
 // On bot logged in / connected server
 client.on("ready", () => {
   console.log(`+ Bot logged in`)
-  client.user.setActivity(`the ${info.totalImg} Catnips`, { type: ActivityType.Watching })
+  client.user.setActivity(`the ${readTotalImg} Catnips`, { type: ActivityType.Watching })
 })
 
 // On slash command used
