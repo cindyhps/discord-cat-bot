@@ -47,14 +47,17 @@ client.on("interactionCreate", async (interaction) => {
 
   try {
     if (interaction.commandName === "cat") {
+      await interaction.deferReply()
       const img = await getCatImg(interaction.options.get("tag"))
-      await interaction.reply({ content: img, ephemeral: false })
+      await interaction.editReply({ content: img, ephemeral: true })
     } else if (interaction.commandName === "catgif") {
+      await interaction.deferReply()
       const gif = await getGIF(interaction.options.get("search"))
-      await interaction.reply({ content: gif, ephemeral: false })
+      await interaction.editReply({ content: gif, ephemeral: true })
     } else {
+      await interaction.deferReply()
       const img = await getCatImg(interaction.commandName)
-      await interaction.reply({ content: img, ephemeral: false })
+      await interaction.editReply({ content: img, ephemeral: true })
     }
   } catch (e) {
     console.error(e)

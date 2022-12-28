@@ -70,8 +70,6 @@ export const getGIF = async (q) => {
 
   const urlList = arrayShuffle(tenorUrls.concat(giphyUrls))
 
-  urlList.map((url) => console.log(url))
-
   if (urlList.length > 0) {
     return urlList[randomNumber.int(0, urlList.length) - 1]
   } else {
