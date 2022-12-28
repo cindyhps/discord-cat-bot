@@ -1,7 +1,7 @@
 
 # Share cat images & GIF's
 
-![](https://raw.githubusercontent.com/Kaosc/discord-cat-bot/master/assets/cat_128.png)<a href="https://www.buymeacoffee.com/kaosc" target="_blank"><img src="./assets/buy.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important; margin-left: 30px; margin-bottom: 25px" ></a>
+![](https://raw.githubusercontent.com/Kaosc/discord-cat-bot/master/assets/cat_128.png)
 ### [Add to Server](https://discord.com/api/oauth2/authorize?client_id=1052869011366477844&permissions=277025459200&scope=bot%20applications.commands) 
 
 ### Commands List
@@ -39,3 +39,4 @@
 
 ![](./assets/giphymark.png)
 
+<a href="https://www.buymeacoffee.com/kaosc" target="_blank"><img src="./assets/buy.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important; margin-left: 30px; margin-bottom: 25px" ></a>
