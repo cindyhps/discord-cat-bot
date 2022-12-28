@@ -39,7 +39,7 @@ export const commands = [
 	},
 	{
 		name: "catfeels",
-		description: "Responds with a image or gif of a cat that expresses any feeling",
+		description: "Replies with a image or gif of a cat that expresses any feeling",
 	},
 	{
 		name: "catreact",

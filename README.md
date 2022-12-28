@@ -10,20 +10,20 @@
 
 | Command | Description |
 | ------------- |:-------------:|
-| /catgif                     | Replies with a random cat picture |
-| /catgif [search: "value"]   | Replies with a gif according to the specified search. (e.g cute, lonely, sad) |
+| /catgif                     | Replies with a random cat gif |
+| /catgif [search: "value"]   | Replies with a gif according to the specified search (e.g cute, lonely, sad) |
 
 ### Image
 
 | Command | Description |
 | ------------- |:-------------:|
 | /cat                | Replies with a random cat image or gif |
-| /cat [tag: "value"] | (Experimental) Replies with a image or gif according to the specified tag. |
+| /cat [tag: "value"] | (Experimental) Replies with a image or gif according to the specified tag |
 | /catmeme            | Replies with a cat meme |
 | /catmemelove        | Replies with a in love cat meme |
 | /catlove            | Replies with a in love cat image or gif |
 | /catcasual          | Replies with a casual cat image or gif |
-| /catfeels           | Responds with a image or gif of a cat that expresses any feeling |
+| /catfeels           | Replies with a image or gif of a cat that expresses any feeling |
 | /catreact           | Replies with a reaction image or gif of a cat |
 | /catmental          | Replies with a cat image or gif about mental health |
 | /catedit            | Replies with a edited cat image or gif |
