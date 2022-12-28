@@ -5,7 +5,6 @@ import { KeepAlive } from "./server.js"
 import { getCatImg, readTotalImg } from "./api/fetchImg.js"
 import { getGIF } from "./api/fetchGIF.js"
 import { commands } from "./commands.js"
-import info from "./info.json" assert { type: "json" }
 
 // Load secrets (Only for local env)
 dotenv.config()
