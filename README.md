@@ -1,26 +1,15 @@
 
 # Share cat images & GIF's
 
-<div style="margin-bottom: 70px !important; ">
-  <div style="float: left;">
-    <a href="" target="_blank" >
-      <img src="./assets/cat_128.png" alt="logo" style="box-shadow: black 0px 10px 20px, black 0px 6px 6px; border-radius: 70px !important; " />
-  </div>
+<img src="./assets/cat_128.png" alt="logo"/>
 
-  <div>
-    <a href="https://discord.com/api/oauth2/authorize?client_id=1052869011366477844&permissions=277025459200&scope=bot%20applications.commands" target="_blank" >
-      <img  
-        style=
-        "
-          margin-left: 60px !important; 
-          margin-top: 40px !important; 
-          border: 2px solid white !important; 
-          border-radius: 25px !important; 
-          box-shadow: black 0px 10px 20px, black 0px 6px 6px;
-        "
-        src="./assets/dcbtn.png" alt="button" />
-    </a>
-  </div>
+</br>
+
+<div>
+  <a href="https://discord.com/api/oauth2/authorize?client_id=1052869011366477844&permissions=277025459200&scope=bot%20applications.commands" target="_blank" >
+    <img  
+      src="./assets/dcbtn.png" alt="button" />
+  </a>
 </div>
 
 ### Command List
