@@ -39,10 +39,6 @@ const rest = new REST({ version: "10" }).setToken(TOKEN)
 // On bot logged in / connected server
 client.on("ready", () => {
   console.log(`+ Bot logged in`)
-
-  client.user.setUsername("Cat").catch(() => {
-    client.user.setUsername("Cats").catch((e) => console.log(e))
-  })
   client.user.setActivity(`the Catnips`, { type: ActivityType.Watching })
 })
 
@@ -67,7 +63,12 @@ client.on("interactionCreate", async (interaction) => {
       // MEOW
       const user = interaction.options.get("to")
       const meow = meows[random.int(0, meows.length - 1)]
-      interaction.reply(`${user.value} ${meow}`)
+
+      if (user.value && user.value.startsWith("<@") && user.value.endsWith(">")) {
+        interaction.reply(`${user.value} ${meow}`)
+      } else {
+        interaction.reply({ content: "Couldn't find mentioned user!", ephemeral: true })
+      }
 
     } else {
       // IMG VIA CATEGORIES
