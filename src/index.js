@@ -64,12 +64,16 @@ client.on("interactionCreate", async (interaction) => {
       const user = interaction.options.get("to")
       const meow = meows[random.int(0, meows.length - 1)]
 
-      if (user && user.value.startsWith("<@") && user.value.endsWith(">")) {
-        interaction.reply(`${user.value} ${meow}`)
+      if (user) {
+        if (user.value.startsWith("<@") && user.value.endsWith(">")) {
+          interaction.reply(`${user.value} ${meow}`)
+        } else {
+          interaction.reply({ content: "Couldn't the find mentioned user!", ephemeral: true })
+        }
       } else {
-        interaction.reply({ content: "Couldn't the find mentioned user!", ephemeral: true })
+        interaction.reply(meow)
       }
-
+      
     } else {
       // IMG VIA CATEGORIES
       await interaction.deferReply()
