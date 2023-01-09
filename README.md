@@ -2,9 +2,7 @@
 # Share cat images & GIF's
 
 <img src="./assets/cat_128.png" alt="logo"/>
-
 </br>
-
 <div>
   <a href="https://discord.com/api/oauth2/authorize?client_id=1052869011366477844&permissions=277025459200&scope=bot%20applications.commands" target="_blank" >
     <img  
