@@ -1,4 +1,4 @@
-import Airtable, { Base } from "airtable"
+import Airtable from "airtable"
 import dotenv from "dotenv"
 import random from "random"
 
@@ -28,10 +28,12 @@ Airtable.configure({
 var base = Airtable.base(AIRTABLE_BASE_ID)
 
 // https://support.airtable.com/docs/formula-field-reference
+
 export const getCatImg = async (value) => {
 	let records = []
 
 	const callType = categorys.includes(value) ? "category" : value ? "tag" : undefined
+
 	if (callType === "category") {
 		// BY CATEGORY
 		records = await base("cat-pictures")
