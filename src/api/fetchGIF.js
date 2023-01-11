@@ -39,9 +39,8 @@ const fetchTenor = async (q) => {
 
 // GIPHY
 const fetchGiphy = async (q) => {
-  // getting unrevelant gifs when search specified.
-  const search = "cat" // q ? "cat " + q.value : "cat"
-  const limit = "30" // q ? "5" : "20"
+  const search = "cat"
+  const limit = "20"
 
   let gifUrls = []
   let URL =
