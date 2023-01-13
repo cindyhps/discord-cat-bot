@@ -1,6 +1,7 @@
 import Airtable from "airtable"
 import dotenv from "dotenv"
 import random from "random"
+import { saveLog } from "../logger.js"
 
 // Load secrets (Only for local env)
 dotenv.config()
@@ -31,9 +32,7 @@ var base = Airtable.base(AIRTABLE_BASE_ID)
 
 export const getCatImg = async (value) => {
   let records = []
-
-  const l1_date = new Date();
-  console.log(`[${l1_date.toLocaleString()}]+ VALUE:`, value)
+  const timeStamp = new Date();
 
   const callType = categorys.includes(value) ? "category" : value ? "tag" : undefined
 
@@ -45,7 +44,10 @@ export const getCatImg = async (value) => {
         filterByFormula: `SEARCH(${'"' + value + '"'}, category)`,
       })
       .all()
-      .catch((e) => console.log("E1:", e))
+      .catch((e) => {
+        console.log("E1:", e)
+        saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "IMG-API-ERROR")
+      })
   } else if (callType === "tag") {
     // BY TAGS
     records = await base("cat-pictures")
@@ -54,7 +56,10 @@ export const getCatImg = async (value) => {
         filterByFormula: `SEARCH(${'"' + value.value + '"'}, tags)`,
       })
       .all()
-      .catch((e) => console.log("E2:", e))
+      .catch((e) => {
+        console.log("E2:", e)
+        saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "IMG-API-ERROR")
+      })
   } else {
     // ALL
     records = await base("cat-pictures")
@@ -62,11 +67,11 @@ export const getCatImg = async (value) => {
         fields: ["url"],
       })
       .all()
-      .catch((e) => console.log("E3:", e))
+      .catch((e) => {
+        console.log("E3:", e)
+        saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "IMG-API-ERROR")
+      })
   }
-
-  const l2_date = new Date();
-  console.log(`[${l2_date.toLocaleString()}]+ RECORDS:`, records.length)
 
   if (records.length > 0) {
     return records.map((record) => record.fields.url)[random.int(0, records.length - 1)]

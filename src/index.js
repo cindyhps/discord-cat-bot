@@ -1,12 +1,15 @@
 import { Client, GatewayIntentBits, REST, Routes, ActivityType } from "discord.js"
+import { execa } from 'execa';
+import random from "random"
 import dotenv from "dotenv"
+import { saveLog } from "./logger.js"
 
 import { KeepAlive } from "./server.js"
 import { getCatImg } from "./api/fetchImg.js"
 import { getGIF } from "./api/fetchGIF.js"
 import { commands } from "./commands.js"
 import { meows } from "./constants.js"
-import random from "random"
+
 
 // Load secrets (Only for local env)
 dotenv.config()
@@ -26,70 +29,67 @@ const client = new Client({
 // Create new REST from discord.js
 const rest = new REST({ version: "10" }).setToken(TOKEN)
 
-  // Load application commands
-  ; (async () => {
-    try {
-      await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands })
-      console.log("+ Successfully reloaded commands.")
-    } catch (e) {
-      console.error(e)
-    }
-  })()
+const rebootReplit = () => execa('kill', ['1']);
+
+// Load application commands
+const loadApplicationCommands = async () => {
+  try {
+    await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands })
+    console.log("LOG: Successfully loaded commands.")
+  } catch (e) {
+    console.error(e)
+  }
+}
 
 // On bot logged in / connected server
 client.on("ready", () => {
-  console.log(`+ Bot logged in`)
+  console.log(`LOG: Bot logged in`)
   client.user.setActivity(`the Catnips`, { type: ActivityType.Watching })
 })
 
 // On slash command used
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return
+  const timeStamp = new Date();
 
   try {
     if (interaction.commandName === "cat") {
       // cat | cat<tag>
-      
+
       await interaction
         .deferReply()
         .then(async () => {
 
-          // log
-          const l1_date = new Date();
-          console.log(`[${l1_date.toLocaleString()}]+ COMMAND:`, interaction.commandName)
-          
           try {
             const img = await getCatImg(interaction.options.get("tag"))
             interaction.editReply(img)
           } catch (e) {
-            console.log("Error on '/cat':", e)
+            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR")
           }
-          
+
         })
         .catch((e) => {
           console.error(e)
+          saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR")
         })
     } else if (interaction.commandName === "catgif") {
       // catgif | catgif<search>
-      
+
       await interaction
         .deferReply()
         .then(async () => {
-          
-          // log
-          const l2_date = new Date();
-          console.log(`[${l2_date.toLocaleString()}]+ COMMAND:`, interaction.commandName)
 
           try {
             const gif = await getGIF(interaction.options.get("search"))
             interaction.editReply(gif)
           } catch (e) {
             console.log("Error on '/catgif':", e)
+            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR")
           }
 
         })
         .catch((e) => console.error(e))
-      
+
     } else if (interaction.commandName === "catmeow") {
       // catmeow | catmeow<to>
 
@@ -113,29 +113,53 @@ client.on("interactionCreate", async (interaction) => {
         .deferReply()
         .then(async () => {
 
-          // log
-          const l3_date = new Date();
-          console.log(`[${l3_date.toLocaleString()}]+ COMMAND:`, interaction.commandName)
-
           try {
             const img = await getCatImg(interaction.commandName)
             interaction.editReply(img)
           } catch (e) {
             console.log("Error on 'cat:category:", e)
+            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR")
           }
 
         })
         .catch((e) => {
           console.error(e)
+          saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR")
         })
     }
   } catch (e) {
     console.error(e)
+    saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR")
   }
 })
 
-// Bot Login
-await client.login(TOKEN)
+client.on("error", (e) => {
+  console.error("ERROR:", e)
+  saveLog(e, "CLIENT-ERROR")
+  rebootReplit()
+});
 
-// Keep server alive
+client.on("warn", (e) => {
+  console.warn("WARNING:", e)
+  saveLog(e, "CLIENT-WARN")
+});
+
+client.on("debug", (e) => {
+  console.info("INFO:", e)
+});
+
+await loadApplicationCommands()
+  .catch((e) => {
+    console.error(e)
+    saveLog(e, "COMMAND-LOAD-ERR")
+    rebootReplit()
+  })
+
+await client.login(TOKEN)
+  .catch((e) => {
+    console.error(e)
+    saveLog(e, "CLIENT-LOGIN-ERR")
+    rebootReplit()
+  })
+
 KeepAlive()
