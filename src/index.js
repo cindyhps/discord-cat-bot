@@ -16,82 +16,122 @@ const CLIENT_ID = process.env.CLIENT_ID
 
 // Create new Client from discord.js
 const client = new Client({
-	intents: [
-		GatewayIntentBits.Guilds,
-		GatewayIntentBits.GuildMessages,
-		GatewayIntentBits.MessageContent,
-	],
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+  ],
 })
 
 // Create new REST from discord.js
 const rest = new REST({ version: "10" }).setToken(TOKEN)
 
-// Load application commands
-;(async () => {
-	try {
-		await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands })
-		console.log("+ Successfully reloaded commands.")
-	} catch (e) {
-		console.error(e)
-	}
-})()
+  // Load application commands
+  ; (async () => {
+    try {
+      await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands })
+      console.log("+ Successfully reloaded commands.")
+    } catch (e) {
+      console.error(e)
+    }
+  })()
 
 // On bot logged in / connected server
 client.on("ready", () => {
-	console.log(`+ Bot logged in`)
-	client.user.setActivity(`the Catnips`, { type: ActivityType.Watching })
+  console.log(`+ Bot logged in`)
+  client.user.setActivity(`the Catnips`, { type: ActivityType.Watching })
 })
 
 // On slash command used
 client.on("interactionCreate", async (interaction) => {
-	if (!interaction.isChatInputCommand()) return
+  if (!interaction.isChatInputCommand()) return
 
-	try {
-		if (interaction.commandName === "cat") {
-			// IMG RANDOM OR VIA TAG
-			await interaction
-				.deferReply()
-				.then(async () => {
-					const img = await getCatImg(interaction.options.get("tag"))
-					await interaction.editReply({ content: img })
-				})
-				.catch((e) => {
-					console.error(e)
-				})
-		} else if (interaction.commandName === "catgif") {
-			// GIF
-			await interaction
-				.deferReply()
-				.then(async () => {
-					const gif = await getGIF(interaction.options.get("search"))
-					await interaction.editReply({ content: gif })
-				})
-				.catch((e) => console.error(e))
-		} else if (interaction.commandName === "catmeow") {
-			// MEOW
-			const user = interaction.options.get("to")
-			const meow = meows[random.int(0, meows.length - 1)]
+  try {
+    if (interaction.commandName === "cat") {
+      // cat | cat<tag>
+      
+      await interaction
+        .deferReply()
+        .then(async () => {
 
-			if (user && user.value.startsWith("<@") && user.value.endsWith(">")) {
-				interaction.reply(`${user.value} ${meow}`)
-			} else {
-				interaction.reply({ content: "Couldn't the find mentioned user!", ephemeral: true })
-			}
-		} else {
-			// IMG VIA CATEGORIES
-			await interaction
-				.deferReply()
-				.then(async () => {
-					const img = await getCatImg(interaction.commandName)
-					await interaction.editReply({ content: img })
-				})
-				.catch((e) => {
-					console.error(e)
-				})
-		}
-	} catch (e) {
-		console.error(e)
-	}
+          // log
+          const l1_date = new Date();
+          console.log(`[${l1_date.toLocaleString()}]+ COMMAND:`, interaction.commandName)
+          
+          try {
+            const img = await getCatImg(interaction.options.get("tag"))
+            interaction.editReply(img)
+          } catch (e) {
+            console.log("Error on '/cat':", e)
+          }
+          
+        })
+        .catch((e) => {
+          console.error(e)
+        })
+    } else if (interaction.commandName === "catgif") {
+      // catgif | catgif<search>
+      
+      await interaction
+        .deferReply()
+        .then(async () => {
+          
+          // log
+          const l2_date = new Date();
+          console.log(`[${l2_date.toLocaleString()}]+ COMMAND:`, interaction.commandName)
+
+          try {
+            const gif = await getGIF(interaction.options.get("search"))
+            interaction.editReply(gif)
+          } catch (e) {
+            console.log("Error on '/catgif':", e)
+          }
+
+        })
+        .catch((e) => console.error(e))
+      
+    } else if (interaction.commandName === "catmeow") {
+      // catmeow | catmeow<to>
+
+      const user = interaction.options.get("to")
+      const meow = meows[random.int(0, meows.length - 1)]
+
+      if (user) {
+        if (user.value.startsWith("<@") && user.value.endsWith(">")) {
+          interaction.reply(`${user.value} ${meow}`)
+        } else {
+          interaction.reply({ content: "Couldn't the find mentioned user!", ephemeral: true })
+        }
+      } else {
+        interaction.reply(meow)
+      }
+
+    } else {
+      // cat:category
+
+      await interaction
+        .deferReply()
+        .then(async () => {
+
+          // log
+          const l3_date = new Date();
+          console.log(`[${l3_date.toLocaleString()}]+ COMMAND:`, interaction.commandName)
+
+          try {
+            const img = await getCatImg(interaction.commandName)
+            interaction.editReply(img)
+          } catch (e) {
+            console.log("Error on 'cat:category:", e)
+          }
+
+        })
+        .catch((e) => {
+          console.error(e)
+        })
+    }
+  } catch (e) {
+    console.error(e)
+  }
 })
 
 // Bot Login

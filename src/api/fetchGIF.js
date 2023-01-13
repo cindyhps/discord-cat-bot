@@ -64,6 +64,7 @@ const fetchGiphy = async (q) => {
 }
 
 export const getGIF = async (q) => {
+  console.log("q:", q)
   const giphyUrls = q ? [] : await fetchGiphy(q)
   const tenorUrls = await fetchTenor(q)
 
