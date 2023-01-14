@@ -7,7 +7,7 @@ import { saveLog } from "./logger.js"
 import { KeepAlive } from "./server.js"
 import { getCatImg } from "./api/fetchImg.js"
 import { getGIF } from "./api/fetchGIF.js"
-import { commands } from "./commands.js"
+import { commands, helpEmbed } from "./commands.js"
 import { meows } from "./constants.js"
 
 // Load secrets (Only for local env)
@@ -99,6 +99,10 @@ client.on("interactionCreate", async (interaction) => {
       } else {
         interaction.reply(meow)
       }
+    } else if (interaction.commandName === "cathelp") {
+      interaction.reply({
+        embeds: [helpEmbed]
+      })
     } else {
       // cat:category
 
