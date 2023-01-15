@@ -13,7 +13,7 @@ const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID
 Airtable.configure({
   endpointUrl: "https://api.airtable.com",
   apiKey: AIRTABLE_KEY,
-  requestTimeout: 10000,
+  requestTimeout: 30000,
 })
 
 var base = Airtable.base(AIRTABLE_BASE_ID)
@@ -36,7 +36,7 @@ export const getCatImg = async (value) => {
       .all()
       .catch((e) => {
         console.log("E1:", e)
-        saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "IMG-API-ERROR")
+        saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "IMG-API-ERROR11")
       })
   } else if (callType === "tag") {
     // BY TAGS
@@ -48,7 +48,7 @@ export const getCatImg = async (value) => {
       .all()
       .catch((e) => {
         console.log("E2:", e)
-        saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "IMG-API-ERROR")
+        saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "IMG-API-ERROR2")
       })
   } else {
     // ALL
@@ -59,7 +59,7 @@ export const getCatImg = async (value) => {
       .all()
       .catch((e) => {
         console.log("E3:", e)
-        saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "IMG-API-ERROR")
+        saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "IMG-API-ERROR3")
       })
   }
 

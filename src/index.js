@@ -18,6 +18,7 @@ const CLIENT_ID = process.env.CLIENT_ID
 
 // Create new Client from discord.js
 const client = new Client({
+  restRequestTimeout: 30000,
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
@@ -62,7 +63,7 @@ client.on("interactionCreate", async (interaction) => {
             const img = await getCatImg(interaction.options.get("tag"))
             interaction.editReply(img)
           } catch (e) {
-            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR")
+            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR1")
           }
         })
         .catch((e) => {
@@ -80,7 +81,7 @@ client.on("interactionCreate", async (interaction) => {
             interaction.editReply(gif)
           } catch (e) {
             console.log("Error on '/catgif':", e)
-            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR")
+            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR2")
           }
         })
         .catch((e) => console.error(e))
@@ -114,17 +115,17 @@ client.on("interactionCreate", async (interaction) => {
             interaction.editReply(img)
           } catch (e) {
             console.log("Error on 'cat:category:", e)
-            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR")
+            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR3")
           }
         })
         .catch((e) => {
           console.error(e)
-          saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR")
+          saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR4")
         })
     }
   } catch (e) {
     console.error(e)
-    saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR")
+    saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR5")
   }
 })
 
