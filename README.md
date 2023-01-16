@@ -15,6 +15,7 @@
 | ------------- |:-------------:|
 | /cathelp | Lists all available commands |
 | /catmeow | Replies with generated large font "Meow" |
+| /catmeow [to: "user"] | Replies to mentioned user with generated large font "Meow" |
 
 ### GIF
 
@@ -29,7 +30,6 @@
 | ------------- |:-------------:|
 | /cat                  | Replies with a random cat image or gif |
 | /cat [tag: "value"]   | (Experimental) Replies with a image or gif according to the specified tag |
-| /catmeow [to: "user"] | Replies to mentioned user with generated large font "Meow" |
 | /catmeme              | Replies with a cat meme |
 | /catmemelove          | Replies with a in love cat meme |
 | /catlove              | Replies with a in love cat image or gif |
