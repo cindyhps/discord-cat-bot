@@ -68,7 +68,7 @@ client.on("interactionCreate", async (interaction) => {
         })
         .catch((e) => {
           console.error(e)
-          saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR")
+          saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR2")
         })
     } else if (interaction.commandName === "catgif") {
       // catgif | catgif<search>
@@ -81,7 +81,7 @@ client.on("interactionCreate", async (interaction) => {
             interaction.editReply(gif)
           } catch (e) {
             console.log("Error on '/catgif':", e)
-            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR2")
+            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR3")
           }
         })
         .catch((e) => console.error(e))
@@ -115,17 +115,17 @@ client.on("interactionCreate", async (interaction) => {
             interaction.editReply(img)
           } catch (e) {
             console.log("Error on 'cat:category:", e)
-            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR3")
+            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR4")
           }
         })
         .catch((e) => {
           console.error(e)
-          saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR4")
+          saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR5")
         })
     }
   } catch (e) {
     console.error(e)
-    saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR5")
+    saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR6")
   }
 })
 
@@ -138,6 +138,11 @@ client.on("error", (e) => {
 client.on("warn", (e) => {
   console.warn("WARNING:", e)
   saveLog(e, "CLIENT-WARN")
+})
+
+client.on("debug", (e) => {
+  console.warn("DEBUG:", e)
+  saveLog(e, "CLIENT-DEBUG")
 })
 
 await loadApplicationCommands().catch((e) => {
