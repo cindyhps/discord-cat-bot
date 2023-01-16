@@ -17,14 +17,14 @@
 | /catmeow | Replies with generated large font "Meow" |
 | /catmeow [to: "user"] | Replies to mentioned user with generated large font "Meow" |
 
-### GIF
+## GIF Commands
 
 | Command | Description |
 | ------------- |:-------------:|
 | /catgif                     | Replies with a random cat gif |
 | /catgif [search: "value"]   | Replies with a gif according to the specified search (e.g cute, lonely, sad) |
 
-### Image
+## Image Commands
 
 | Command | Description |
 | ------------- |:-------------:|
