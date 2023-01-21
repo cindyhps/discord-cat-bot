@@ -158,7 +158,7 @@ setTimeout(() => {
   if (needReload) {
     rebootReplit()
   }
-}, 10000)
+}, 15000)
 
 // check dc connection promise
 setTimeout(() => {
@@ -167,7 +167,7 @@ setTimeout(() => {
   } else {
     console.log("LOG: Replit is running")
   }
-}, 15000)
+}, 30000)
 
 await loadApplicationCommands()
   .then(() => {
