@@ -26,8 +26,8 @@ export const getCatImg = async (value) => {
 
   const callType = categories.includes(value) ? "category" : value ? "tag" : undefined
 
+  //////// CATEGORY ////////
   if (callType === "category") {
-    // BY CATEGORY
     records = await base("cat-pictures")
       .select({
         fields: ["url"],
@@ -36,22 +36,27 @@ export const getCatImg = async (value) => {
       .all()
       .catch((e) => {
         console.log("E1:", e)
-        saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "IMG-API-ERROR11")
+        saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "IMG-API-ERROR1")
       })
-  } else if (callType === "tag") {
+  }
+
+  //////// TAG ////////
+  if (callType === "tag") {
     // BY TAGS
     records = await base("cat-pictures")
       .select({
         fields: ["url"],
-        filterByFormula: `SEARCH(${'"' + value.value + '"'}, tags)`,
+        filterByFormula: `SEARCH(${'"' + value.value.replaceAll(" ", "").toLowerCase() + '"'}, tags)`,
       })
       .all()
       .catch((e) => {
         console.log("E2:", e)
         saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "IMG-API-ERROR2")
       })
-  } else {
-    // ALL
+  }
+
+  //////// RANDOM ////////
+  if (!callType) {
     records = await base("cat-pictures")
       .select({
         fields: ["url"],

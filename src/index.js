@@ -8,7 +8,7 @@ import { KeepAlive } from "./server.js"
 import { getCatImg } from "./api/fetchImg.js"
 import { getGIF } from "./api/fetchGIF.js"
 import { commands, helpEmbed } from "./commands.js"
-import { meows } from "./constants.js"
+import { categories, meows } from "./constants.js"
 
 // Load secrets (Only for local env)
 dotenv.config()
@@ -24,7 +24,6 @@ const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
   ],
 })
 
@@ -52,43 +51,42 @@ client.on("ready", () => {
 // On slash command used
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return
+
   const timeStamp = new Date()
 
+  ////////// CAT //////////
   try {
     if (interaction.commandName === "cat") {
-      // cat | cat<tag>
-
       await interaction
         .deferReply()
         .then(async () => {
-          try {
-            const img = await getCatImg(interaction.options.get("tag"))
-            interaction.editReply(img)
-          } catch (e) {
-            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR1")
-          }
+          const img = await getCatImg(interaction.options.get("tag"))
+          console.log("REPLY: ", img)
+          interaction.editReply(img)
         })
         .catch((e) => {
           console.error(e)
           saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR2")
         })
-    } else if (interaction.commandName === "catgif") {
-      // catgif | catgif<search>
+    }
 
+    ////////// GIF //////////
+    if (interaction.commandName === "catgif") {
       await interaction
         .deferReply()
         .then(async () => {
-          try {
-            const gif = await getGIF(interaction.options.get("search"))
-            interaction.editReply(gif)
-          } catch (e) {
-            console.log("Error on '/catgif':", e)
-            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR3")
-          }
+          const gif = await getGIF(interaction.options.get("search"))
+          console.log("REPLY: ", gif)
+          interaction.editReply(gif)
         })
-        .catch((e) => console.error(e))
-    } else if (interaction.commandName === "catmeow") {
-      // catmeow | catmeow<to>
+        .catch((e) => {
+          console.error(e)
+          saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR3")
+        })
+    }
+
+    ////////// MEOW //////////
+    if (interaction.commandName === "catmeow") {
 
       const user = interaction.options.get("to")
       const meow = meows[random.int(0, meows.length - 1)]
@@ -102,29 +100,30 @@ client.on("interactionCreate", async (interaction) => {
       } else {
         interaction.reply(meow)
       }
-    } else if (interaction.commandName === "cathelp") {
-      interaction.reply({
-        embeds: [helpEmbed],
-      })
-    } else {
-      // cat:category
+    }
 
+    ////////// CATEGORY //////////
+    if (categories.includes(interaction.commandName)) {
       await interaction
         .deferReply()
         .then(async () => {
-          try {
-            const img = await getCatImg(interaction.commandName)
-            interaction.editReply(img)
-          } catch (e) {
-            console.log("Error on 'cat:category:", e)
-            saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR4")
-          }
+          const img = await getCatImg(interaction.commandName)
+          console.log("REPLY: ", img)
+          interaction.editReply(img)
         })
         .catch((e) => {
           console.error(e)
           saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR5")
         })
     }
+
+    ////////// HELP //////////
+    if (interaction.commandName === "cathelp") {
+      interaction.reply({
+        embeds: [helpEmbed],
+      })
+    }
+
   } catch (e) {
     console.error(e)
     saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR6")
@@ -147,13 +146,14 @@ client.on("debug", (e) => {
   console.warn("DEBUG:", e)
 })
 
+// Periodic Reboot
 setTimeout(() => {
   rebootReplit()
-}, 3600000)
+}, 2700000)
 
 // check loadApplication promise
 setTimeout(() => {
-  console.log(needReload)
+  console.log("LOG: NeedReload:", needReload)
 
   if (needReload) {
     rebootReplit()
@@ -169,6 +169,7 @@ setTimeout(() => {
   }
 }, 30000)
 
+// load slash commands
 await loadApplicationCommands()
   .then(() => {
     needReload = false
@@ -179,6 +180,7 @@ await loadApplicationCommands()
     rebootReplit()
   })
 
+// login
 await client.login(TOKEN).catch((e) => {
   console.error(e)
   saveLog(e, "CLIENT-LOGIN-ERR")
