@@ -41,7 +41,7 @@
 
 #### Additional Notes:
 
-+ The cat images & GIF's comes from a database that I have prepared myself (By [Airtable](https://www.airtable.com/)), so there is not much image available at the moment. By joining the [Discord server](https://discord.gg/8ZRmukDVsa), you can send cat pictures and contribute.
++ The cat images & GIF's comes from a database that I have prepared myself (By [Airtable](https://www.airtable.com/)), so there is not much image available at the moment.
 
 * The bot uses [Giphy](https://giphy.com/) & [Tenor](https://tenor.com/) API services to provide GIF's.
 * When searching for a gif only enter the related value (e.g /catgif sad).
