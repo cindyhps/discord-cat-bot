@@ -42,11 +42,9 @@
 #### Additional Notes:
 
 + The cat images & GIF's comes from a database that I have prepared myself (By [Airtable](https://www.airtable.com/)), so there is not much image available at the moment.
-
 * The bot uses [Giphy](https://giphy.com/) & [Tenor](https://tenor.com/) API services to provide GIF's.
 * When searching for a gif only enter the related value (e.g /catgif sad).
 
 </br>
 
 <a href="./assets/giphymark.png" target="_blank"><img align="right" src="./assets/buy.png" alt="Buy Me A Coffee" style="height: 60px !important;margin-bottom: 30px" ></a>
-<a href="https://www.buymeacoffee.com/kaosc" target="_blank"><img align="left" src="./assets/giphymark.png" alt="Buy Me A Coffee" style="height: 54px !important;width: 440px;" ></a>
