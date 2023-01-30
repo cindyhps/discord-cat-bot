@@ -147,9 +147,9 @@ client.on("debug", (e) => {
 })
 
 // Periodic Reboot
-setTimeout(() => {
-  rebootReplit()
-}, 2700000)
+//setTimeout(() => {
+//  rebootReplit()
+//}, 2700000)
 
 // check loadApplication promise
 setTimeout(() => {
@@ -187,4 +187,4 @@ await client.login(TOKEN).catch((e) => {
   rebootReplit()
 })
 
-KeepAlive()
+// KeepAlive()
