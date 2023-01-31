@@ -70,8 +70,6 @@ export const commands = [
 
 export const helpEmbed = new EmbedBuilder()
   .setColor("#661E84")
-  .setTitle('Cat Command List')
+  .setTitle('Command List')
   .setAuthor({ name: 'Cat', iconURL: 'https://raw.githubusercontent.com/Kaosc/discord-cat-bot/master/assets/cat_128.png' })
   .addFields(commandsList)
-  .setFooter({ text: 'Meow', iconURL: 'https://raw.githubusercontent.com/Kaosc/discord-cat-bot/master/assets/cat_square.png' });
-

@@ -26,8 +26,8 @@ export const categories = [
 ]
 
 export const commandsList = [
-  { name: '/cat', value: " " },
-  { name: '/catgif', value: " " },
+  { name: '/cat  |  /cat <tag>', value: " " },
+  { name: '/catgif  |  /catgif <search>', value: " " },
   { name: '/catcasual', value: " " },
   { name: '/catfeels', value: " " },
   { name: '/catmental', value: " " },
