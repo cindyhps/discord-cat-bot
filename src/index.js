@@ -77,7 +77,7 @@ client.on("interactionCreate", async (interaction) => {
         .then(async () => {
           const gif = await getGIF(interaction.options.get("search"))
           console.log("REPLY: ", gif)
-          interaction.editReply(gif)
+          await interaction.editReply(gif)
         })
         .catch((e) => {
           console.error(e)
@@ -92,7 +92,7 @@ client.on("interactionCreate", async (interaction) => {
         .then(async () => {
           const img = await getCatImg(interaction.commandName)
           console.log("REPLY: ", img)
-          interaction.editReply(img)
+          await interaction.editReply(img)
         })
         .catch((e) => {
           console.error(e)
@@ -106,15 +106,15 @@ client.on("interactionCreate", async (interaction) => {
       const user = interaction.options.get("to")
       const meow = meows[random.int(0, meows.length - 1)]
       await interaction.deferReply()
-        .then(() => {
+        .then(async () => {
           if (user) {
             if (user.value.startsWith("<@") && user.value.endsWith(">")) {
-              interaction.reply(`${user.value} ${meow}`)
+              await interaction.editReply(`${user.value} ${meow}`)
             } else {
-              interaction.reply({ content: "Couldn't the find mentioned user!", ephemeral: true })
+              await interaction.editReply({ content: "Couldn't the find mentioned user!", ephemeral: true })
             }
           } else {
-            interaction.reply(meow)
+            await interaction.editReply(meow)
           }
         }).catch((e) => {
           console.error(e)
@@ -125,8 +125,8 @@ client.on("interactionCreate", async (interaction) => {
     ////////// HELP //////////
     if (interaction.commandName === "cathelp") {
       await interaction.deferReply()
-        .then(() => {
-          interaction.reply({
+        .then(async () => {
+          await interaction.editReply({
             embeds: [helpEmbed],
           })
         }).catch((e) => {

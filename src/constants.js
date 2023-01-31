@@ -28,6 +28,7 @@ export const categories = [
 export const commandsList = [
   { name: '/cat  |  /cat <tag>', value: " " },
   { name: '/catgif  |  /catgif <search>', value: " " },
+  { name: '/catmeow |  /catmeow <@to>', value: " " },
   { name: '/catcasual', value: " " },
   { name: '/catfeels', value: " " },
   { name: '/catmental', value: " " },
