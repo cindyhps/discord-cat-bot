@@ -85,23 +85,6 @@ client.on("interactionCreate", async (interaction) => {
         })
     }
 
-    ////////// MEOW //////////
-    if (interaction.commandName === "catmeow") {
-
-      const user = interaction.options.get("to")
-      const meow = meows[random.int(0, meows.length - 1)]
-
-      if (user) {
-        if (user.value.startsWith("<@") && user.value.endsWith(">")) {
-          interaction.reply(`${user.value} ${meow}`)
-        } else {
-          interaction.reply({ content: "Couldn't the find mentioned user!", ephemeral: true })
-        }
-      } else {
-        interaction.reply(meow)
-      }
-    }
-
     ////////// CATEGORY //////////
     if (categories.includes(interaction.commandName)) {
       await interaction
@@ -117,16 +100,44 @@ client.on("interactionCreate", async (interaction) => {
         })
     }
 
+    ////////// MEOW //////////
+    if (interaction.commandName === "catmeow") {
+
+      const user = interaction.options.get("to")
+      const meow = meows[random.int(0, meows.length - 1)]
+      await interaction.deferReply()
+        .then(() => {
+          if (user) {
+            if (user.value.startsWith("<@") && user.value.endsWith(">")) {
+              interaction.reply(`${user.value} ${meow}`)
+            } else {
+              interaction.reply({ content: "Couldn't the find mentioned user!", ephemeral: true })
+            }
+          } else {
+            interaction.reply(meow)
+          }
+        }).catch((e) => {
+          console.error(e)
+          saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR6")
+        })
+    }
+
     ////////// HELP //////////
     if (interaction.commandName === "cathelp") {
-      interaction.reply({
-        embeds: [helpEmbed],
-      })
+      await interaction.deferReply()
+        .then(() => {
+          interaction.reply({
+            embeds: [helpEmbed],
+          })
+        }).catch((e) => {
+          console.error(e)
+          saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR7")
+        })
     }
 
   } catch (e) {
     console.error(e)
-    saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR6")
+    saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR8")
   }
 })
 
