@@ -198,4 +198,4 @@ await client.login(TOKEN).catch((e) => {
   rebootReplit()
 })
 
-// KeepAlive()
+KeepAlive()

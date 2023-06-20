@@ -1,0 +1,2 @@
+[2/5/2023, 10:25:22 PM] DiscordAPIError[10062]: Unknown interaction
+[2/5/2023, 11:56:28 PM] DiscordAPIError[10062]: Unknown interaction
