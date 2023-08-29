@@ -1,6 +1,0 @@
-[1/31/2023, 11:22:16 PM] DiscordAPIError[10062]: Unknown interaction
-[1/31/2023, 11:22:34 PM] DiscordAPIError[10062]: Unknown interaction
-[1/31/2023, 11:25:59 PM] Error [InteractionAlreadyReplied]: The reply to this interaction has already been sent or deferred.
-[1/31/2023, 11:26:49 PM] DiscordAPIError[10062]: Unknown interaction
-[1/31/2023, 11:28:10 PM] DiscordAPIError[10062]: Unknown interaction
-[2/5/2023, 8:15:36 PM] DiscordAPIError[10062]: Unknown interaction

@@ -1,7 +1,8 @@
-import axios from "axios"
-import dotenv from "dotenv"
+import { CacheType, CommandInteractionOption } from "discord.js"
 import arrayShuffle from "array-shuffle"
 import randomNumber from "random"
+import dotenv from 'dotenv';
+import axios from "axios"
 
 // Load secrets (Only for local env)
 dotenv.config()
@@ -11,14 +12,13 @@ const TENOR_CLIENT_KEY = process.env.TENOR_CLIENT_KEY
 const GIPHY_API_KEY = process.env.GIPHY_API_KEY
 
 // TENOR
-const fetchTenor = async (q) => {
-  const search = q ? "cat" + " " + q.value : "cat"
-  const limit = q ? "15" : "30"
+const fetchTenor = async (query: string) => {
+  const limit = query ? "15" : "30"
 
-  let gifUrls = []
+  let gifUrls: string[] = []
   const URL =
     "https://tenor.googleapis.com/v2/search?q=" +
-    search +
+    query +
     "&key=" +
     TENOR_API_KEY +
     "&client_key=" +
@@ -26,11 +26,11 @@ const fetchTenor = async (q) => {
     "&limit=" +
     limit +
     "&media_filter=gif"
-
+    
   await axios
     .get(URL)
     .then((response) => {
-      gifUrls = response.data.results.map((gif) => gif.url)
+      gifUrls = response.data.results.map((gif: any) => gif.url)
     })
     .catch((e) => console.log("err while fetchin from tenor: ", e))
 
@@ -38,34 +38,43 @@ const fetchTenor = async (q) => {
 }
 
 // GIPHY
-const fetchGiphy = async (q) => {
-  const search = "cat"
+const fetchGiphy = async (query: string) => {
   const limit = "20"
 
-  let gifUrls = []
+  let gifUrls: string[] = []
   let URL =
     "https://api.giphy.com/v1/gifs/search?" +
     "api_key=" +
     GIPHY_API_KEY +
     "&q=" +
-    search +
+    query +
     "&limit=" +
     limit +
     "&offset=0&rating=g&lang=en"
-
+  console.log(URL)
   await axios
     .get(URL, { headers: { "Accept-Encoding": "gzip,deflate,compress" } })
     .then((response) => {
-      gifUrls = response.data.data.map((gif) => gif.images.original.url)
+      gifUrls = response.data.data.map((gif: any) => gif.images.original.url)
     })
     .catch((e) => console.log("err while fetchin from giphy: ", e))
 
   return gifUrls
 }
 
-export const getGIF = async (q) => {
-  const giphyUrls = q ? [] : await fetchGiphy(q)
-  const tenorUrls = await fetchTenor(q)
+export const getGIF = async (q: CommandInteractionOption<CacheType> | null) => {
+  let query = "cat"
+
+  if (q) {
+    if (typeof q.value === "string") {
+      query = query + " " + q.value
+    } else {
+      query = query + " " + q.value?.toString()
+    }
+  }
+
+  const giphyUrls = await fetchGiphy(query)
+  const tenorUrls =  await fetchTenor(query)
 
   const urlList = arrayShuffle(tenorUrls.concat(giphyUrls))
 
