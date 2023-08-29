@@ -3,10 +3,11 @@ import { Client, GatewayIntentBits, REST, Routes, ActivityType } from "discord.j
 import random from "random"
 import dotenv from "dotenv"
 
+import fetchGIF from "./api/fetchGIF"
+import fetchCatImage from "./api/fetchCatImage"
+
 import { saveLog } from "./logger"
 import { KeepAlive } from "./server"
-import { getGIF } from "./api/fetchGIF"
-import FetchCatImage from "./api/fetchCatImage"
 import { commands, helpEmbed } from "./commands"
 import { categories, meows } from "./constants"
 
@@ -48,7 +49,7 @@ client.on("interactionCreate", async (interaction) => {
 			await interaction
 				.deferReply()
 				.then(async () => {
-					const img = FetchCatImage(interaction.options.get("tag"))
+					const img = fetchCatImage(interaction.options.get("tag"))
 					console.log("REPLY: ", img)
 					interaction.editReply(img)
 				})
@@ -63,7 +64,7 @@ client.on("interactionCreate", async (interaction) => {
 			await interaction
 				.deferReply()
 				.then(async () => {
-					const gif = await getGIF(interaction.options.get("search"))
+					const gif = await fetchGIF(interaction.options.get("search"))
 					console.log("REPLY: ", gif)
 					await interaction.editReply(gif)
 				})
@@ -78,7 +79,7 @@ client.on("interactionCreate", async (interaction) => {
 			await interaction
 				.deferReply()
 				.then(async () => {
-					const img = FetchCatImage(interaction.commandName)
+					const img = fetchCatImage(interaction.commandName)
 					console.log("REPLY: ", img)
 					await interaction.editReply(img)
 				})
@@ -170,7 +171,6 @@ client.on("debug", (e) => {
 // 	}
 // }, 30000)
 
-
 // Load application commands
 const loadApplicationCommands = async () => {
 	try {
@@ -197,6 +197,5 @@ loadApplicationCommands()
 		saveLog(e, "COMMAND-LOAD-ERR")
 		// rebootReplit()
 	})
-
 
 KeepAlive()

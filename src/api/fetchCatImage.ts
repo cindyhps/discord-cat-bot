@@ -22,7 +22,6 @@ export default function FetchCatImage(value: CommandInteractionOption<CacheType>
 
 	//////// TAG ////////
 	if (searchValue) {
-		// BY TAGS
 		const cats = CatsDB.filter((cat) => cat.tags.includes(searchValue))
 		return cats[random.int(0, cats.length - 1)].url
 	}
