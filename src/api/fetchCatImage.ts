@@ -4,31 +4,34 @@ import random from "random"
 import { CatsDB } from "./../data/cats"
 import { categories } from "../constants.js"
 
-export default function FetchCatImage(value: CommandInteractionOption<CacheType> | null | string): string {
-	if (!value) return "The tag you entered is invalid."
+export default function FetchCatImage(value: CommandInteractionOption<CacheType> | null): string {
 	let searchValue = ""
 
-	if (typeof value === "string") {
-		searchValue = value.toLowerCase().trim()
-	} else {
-		searchValue = typeof value.value === "string" ? value.value.toLowerCase().trim() : ""
+	if (value) {
+		if (typeof value === "string") {
+			searchValue = value
+		} else if (value.value) {
+			searchValue = value.value?.toString()
+		}
+	}
+
+	function getRandomImage(list: CatImage[]) {
+		return list[random.int(0, list.length - 1)].url
 	}
 
 	//////// CATEGORY ////////
-	if (categories.includes(searchValue)) {
-		const cats = CatsDB.filter((cat) => cat.category === searchValue)
-		return cats[random.int(0, cats.length - 1)].url
+	if (searchValue && categories.includes(searchValue)) {
+		return getRandomImage(CatsDB.filter((cat) => cat.category === searchValue))
 	}
 
 	//////// TAG ////////
 	if (searchValue) {
-		const cats = CatsDB.filter((cat) => cat.tags.includes(searchValue))
-		return cats[random.int(0, cats.length - 1)].url
+		return getRandomImage(CatsDB.filter((cat) => cat.tags.includes(searchValue)))
 	}
 
 	//////// RANDOM ////////
 	if (!searchValue) {
-		return CatsDB[random.int(0, CatsDB.length - 1)].url
+		return getRandomImage(CatsDB)
 	}
 
 	return "Sorry, I couldn't find any images for that tag."
