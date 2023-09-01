@@ -1,10 +1,12 @@
 import { CacheType, CommandInteractionOption } from "discord.js"
 import random from "random"
 
-import { CatsDB } from "./../data/cats"
-import { categories } from "../constants.js"
+import CatsDB from "./../data/cats"
+import { categories } from "../constants"
 
-export default function FetchCatImage(value: CommandInteractionOption<CacheType> | null): string {
+const notFound = "Sorry, I couldn't find any images for that tag."
+
+export default function fetchCatImage(value: string | CommandInteractionOption<CacheType> | null): string {
 	let searchValue = ""
 
 	if (value) {
@@ -16,7 +18,11 @@ export default function FetchCatImage(value: CommandInteractionOption<CacheType>
 	}
 
 	function getRandomImage(list: CatImage[]) {
-		return list[random.int(0, list.length - 1)].url
+		console.log(list)
+		const listLen = list.length
+		const randomInt = random.int(0, listLen - 1)
+		const image = list[listLen === 1 ? 0 : randomInt]?.url
+		return image || notFound
 	}
 
 	//////// CATEGORY ////////
@@ -26,6 +32,7 @@ export default function FetchCatImage(value: CommandInteractionOption<CacheType>
 
 	//////// TAG ////////
 	if (searchValue) {
+		console.log(searchValue)
 		return getRandomImage(CatsDB.filter((cat) => cat.tags.includes(searchValue)))
 	}
 
@@ -34,5 +41,5 @@ export default function FetchCatImage(value: CommandInteractionOption<CacheType>
 		return getRandomImage(CatsDB)
 	}
 
-	return "Sorry, I couldn't find any images for that tag."
+	return notFound
 }

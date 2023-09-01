@@ -1,4 +1,4 @@
-export const CatsDB = [
+export default [
 	{
 		url: "https://i.imgur.com/0LINzxs.jpeg",
 		category: "catlove",
