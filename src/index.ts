@@ -24,7 +24,7 @@ const client = new Client({
 	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
 })
 
-const rebootReplit = () => execa("kill", ["1"])
+const rebootReplit = () => execa("kill", ["1"]).then(() => execa("yarn", ["start"]))
 
 client.on("ready", () => {
 	needReload = false
