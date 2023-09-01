@@ -39,3 +39,7 @@ export const commandsList = [
 	{ name: "/catedit", value: " " },
 	{ name: "/cathelp", value: " " },
 ]
+
+export const notFoundGIF = "Sorry, I couldn't find any GIFs for that! 😿"
+export const notFoundIMAGE = "Sorry, I couldn't find any images for that! 😿"
+export const notFoundUSER = "Sorry, I couldn't find the mentioned user! 😿"

@@ -4,7 +4,7 @@ import random from "random"
 import dotenv from "dotenv"
 
 import fetchGIF from "./api/fetchGIF"
-import fetchCatImage from "./api/fetchCatImage"
+import fetchImage from "./api/fetchImage"
 
 import { saveLog } from "./logger"
 import { KeepAlive } from "./server"
@@ -13,82 +13,57 @@ import { categories, meows } from "./constants"
 
 dotenv.config()
 
-const TOKEN = process.env.TOKEN || ""
-const CLIENT_ID = process.env.CLIENT_ID || ""
+const TOKEN = process.env.TOKEN as string
+const CLIENT_ID = process.env.CLIENT_ID as string
 
 let logs = ""
 const notFound = "Sorry, I couldn't find any images for that tag."
 // let needReload = true
+
+const rest = new REST({ version: "10" }).setToken(TOKEN)
 
 const client = new Client({
 	closeTimeout: 60000,
 	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
 })
 
-const rest = new REST({ version: "10" }).setToken(TOKEN)
-
 // const rebootReplit = () => execa("kill", ["1"])
 
 client.on("ready", () => {
-	console.log(`LOG: Bot logged in`)
+	console.debug(`LOG: Bot logged in`)
 	client.user?.setActivity(`the Catnips`, { type: ActivityType.Watching })
 })
 
 client.on("interactionCreate", async (interaction) => {
 	if (!interaction.isChatInputCommand()) return
 
-	const timeStamp = new Date()
+	const timeStamp = new Date().toLocaleString()
 
-	////////// CAT //////////
 	try {
+		////////// RANDOM <|> TAG //////////
 		if (interaction.commandName === "cat") {
+			const value = interaction.options.get("tag")?.value?.toString()
 			await interaction
 				.deferReply()
-				.then(async () => {
-					const img = fetchCatImage(interaction.options.get("tag"))
-					console.log("REPLY: ", img)
-					interaction.editReply({
-						files: img ? [img] : undefined,
-						content: img ? undefined : notFound,
-					})
-				})
-				.catch((e) => {
-					console.error(e)
-					saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR2")
-				})
+				.then(async () => await fetchImage(interaction, value))
+				.catch((e) => saveLog(`[${timeStamp}] ${e}`, "1"))
 		}
 
 		////////// CATEGORY //////////
 		if (categories.includes(interaction.commandName)) {
 			await interaction
 				.deferReply()
-				.then(async () => {
-					const img = fetchCatImage(interaction.commandName)
-					console.log("REPLY: ", img)
-					interaction.editReply({
-						files: img ? [img] : undefined,
-						content: img ? undefined : notFound,
-					})
-				})
-				.catch((e) => {
-					console.error(e)
-					saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR5")
-				})
+				.then(async () => await fetchImage(interaction, interaction.commandName))
+				.catch((e) => saveLog(`[${timeStamp}-2] ${e}`, "2"))
 		}
 
 		////////// GIF //////////
 		if (interaction.commandName === "catgif") {
+			const search = interaction.options.get("search")?.value?.toString()
 			await interaction
 				.deferReply()
-				.then(async () => {
-					const gif = await fetchGIF(interaction.options.get("search"))
-					console.log("REPLY: ", gif)
-					await interaction.editReply(gif)
-				})
-				.catch((e) => {
-					console.error(e)
-					saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR3")
-				})
+				.then(async () => await fetchGIF(interaction, search))
+				.catch((e) => saveLog(`[${timeStamp}] ${e}`, "3"))
 		}
 
 		////////// MEOW //////////
@@ -109,8 +84,7 @@ client.on("interactionCreate", async (interaction) => {
 					}
 				})
 				.catch((e) => {
-					console.error(e)
-					saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR6")
+					saveLog(`[${timeStamp}] ${e}`, "CODE-ERROR6")
 				})
 		}
 
@@ -125,29 +99,22 @@ client.on("interactionCreate", async (interaction) => {
 				})
 				.catch((e) => {
 					console.error(e)
-					saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR7")
+					saveLog(`[${timeStamp}] ${e}`, "CODE-ERROR7")
 				})
 		}
 	} catch (e) {
 		console.error(e)
-		saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR8")
+		saveLog(`[${timeStamp}] ${e}`, "CODE-ERROR8")
 	}
 })
 
 client.on("error", (e) => {
-	console.error("ERROR:", e)
 	saveLog(JSON.stringify(e), "CLIENT-ERROR")
 	// rebootReplit()
 })
 
 client.on("warn", (e) => {
-	console.warn("WARNING:", e)
-	saveLog(e, "CLIENT-WARN")
-})
-
-client.on("debug", (e) => {
-	logs += e
-	console.warn("DEBUG:", e)
+	saveLog(JSON.stringify(e), "CLIENT-WARN")
 })
 
 //setTimeout(() => {
@@ -155,7 +122,7 @@ client.on("debug", (e) => {
 //}, 2700000)
 
 // setTimeout(() => {
-// 	console.log("LOG: NeedReload:", needReload)
+// 	console.debug("LOG: NeedReload:", needReload)
 
 // 	if (needReload) {
 // 		rebootReplit()
@@ -166,33 +133,13 @@ client.on("debug", (e) => {
 // 	if (!logs.includes("CONNECTED")) {
 // 		rebootReplit()
 // 	} else {
-// 		console.log("LOG: Replit is running")
+// 		console.debug("LOG: Replit is running")
 // 	}
 // }, 30000)
 
-const loadApplicationCommands = async () => {
-	try {
-		await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands })
-		console.log("LOG: Successfully loaded commands.")
-	} catch (e) {
-		console.error(e)
-	}
-}
-
-loadApplicationCommands()
-	.then(() => {
-		// needReload = false
-
-		client.login(TOKEN).catch((e) => {
-			console.error(e)
-			saveLog(e, "CLIENT-LOGIN-ERR")
-			// rebootReplit()
-		})
-	})
-	.catch((e) => {
-		console.error(e)
-		saveLog(e, "COMMAND-LOAD-ERR")
-		// rebootReplit()
-	})
+rest
+	.put(Routes.applicationCommands(CLIENT_ID), { body: commands })
+	.then(async () => await client.login(TOKEN))
+	.catch((e) => saveLog(e, "LOAD-ERROR"))
 
 KeepAlive()

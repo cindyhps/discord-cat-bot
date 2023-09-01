@@ -1,8 +1,10 @@
-import { CacheType, CommandInteractionOption } from "discord.js"
+import { CacheType, ChatInputCommandInteraction } from "discord.js"
 import arrayShuffle from "array-shuffle"
 import randomNumber from "random"
 import dotenv from "dotenv"
 import axios from "axios"
+
+import { notFoundGIF } from "../constants"
 
 dotenv.config()
 
@@ -12,8 +14,7 @@ const GIPHY_API_KEY = process.env.GIPHY_API_KEY
 
 const fetchTenor = async (query: string) => {
 	const limit = query ? "15" : "30"
-
-	let gifUrls: string[] = []
+	let urlList: string[] = []
 	const URL =
 		"https://tenor.googleapis.com/v2/search?q=" +
 		query +
@@ -27,18 +28,15 @@ const fetchTenor = async (query: string) => {
 
 	await axios
 		.get(URL)
-		.then((response) => {
-			gifUrls = response.data.results.map((gif: any) => gif.url)
-		})
-		.catch((e) => console.log("err while fetchin from tenor: ", e))
+		.then((response) => (urlList = response.data.results.map((gif: any) => gif.url)))
+		.catch((e) => console.error("ERR-TENOR", e))
 
-	return gifUrls
+	return urlList
 }
 
 const fetchGiphy = async (query: string) => {
 	const limit = "20"
-
-	let gifUrls: string[] = []
+	let urlList: string[] = []
 	let URL =
 		"https://api.giphy.com/v1/gifs/search?" +
 		"api_key=" +
@@ -48,35 +46,31 @@ const fetchGiphy = async (query: string) => {
 		"&limit=" +
 		limit +
 		"&offset=0&rating=g&lang=en"
-	console.log(URL)
+
 	await axios
 		.get(URL, { headers: { "Accept-Encoding": "gzip,deflate,compress" } })
-		.then((response) => {
-			gifUrls = response.data.data.map((gif: any) => gif.images.original.url)
-		})
-		.catch((e) => console.log("err while fetchin from giphy: ", e))
+		.then((response) => (urlList = response.data.data.map((gif: any) => gif.images.original.url)))
+		.catch((e) => console.error("ERR-GIPHY: ", e))
 
-	return gifUrls
+	return urlList
 }
 
-export default async function fetchGIF(q: CommandInteractionOption<CacheType> | null): Promise<string> {
-	let query = "cat"
-
-	if (q) {
-		if (typeof q.value === "string") {
-			query = query + " " + q.value
-		} else {
-			query = query + " " + q.value?.toString()
-		}
-	}
+export default async function fetchGIF(
+	interaction: ChatInputCommandInteraction<CacheType>,
+	search: string | undefined | null
+): Promise<void> {
+	const dq = "cat"
+	let query = search ? `${dq} ${search}` : dq
+	let result = notFoundGIF
 
 	const giphyUrls = await fetchGiphy(query)
 	const tenorUrls = await fetchTenor(query)
 	const shuffleGifs = arrayShuffle(tenorUrls.concat(giphyUrls))
 
 	if (shuffleGifs.length > 0) {
-		return shuffleGifs[randomNumber.int(0, shuffleGifs.length) - 1]
-	} else {
-		return "Sorry, I couldn't find any gifs for that search."
+		result = shuffleGifs[randomNumber.int(0, shuffleGifs.length - 1)]
 	}
+
+	console.debug(`[fetchGIF:${query}]: ${result}`)
+	await interaction.editReply(result)
 }
