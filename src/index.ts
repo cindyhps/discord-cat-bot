@@ -1,5 +1,5 @@
 import { Client, GatewayIntentBits, REST, Routes, ActivityType } from "discord.js"
-// import { execa } from "execa"
+import { execa } from "execa"
 import random from "random"
 import dotenv from "dotenv"
 
@@ -15,10 +15,7 @@ dotenv.config()
 
 const TOKEN = process.env.TOKEN as string
 const CLIENT_ID = process.env.CLIENT_ID as string
-
-let logs = ""
-const notFound = "Sorry, I couldn't find any images for that tag."
-// let needReload = true
+let needReload = true
 
 const rest = new REST({ version: "10" }).setToken(TOKEN)
 
@@ -27,9 +24,10 @@ const client = new Client({
 	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
 })
 
-// const rebootReplit = () => execa("kill", ["1"])
+const rebootReplit = () => execa("kill", ["1"])
 
 client.on("ready", () => {
+	needReload = false
 	console.debug(`LOG: Bot logged in`)
 	client.user?.setActivity(`the Catnips`, { type: ActivityType.Watching })
 })
@@ -110,32 +108,16 @@ client.on("interactionCreate", async (interaction) => {
 
 client.on("error", (e) => {
 	saveLog(JSON.stringify(e), "CLIENT-ERROR")
-	// rebootReplit()
 })
 
 client.on("warn", (e) => {
 	saveLog(JSON.stringify(e), "CLIENT-WARN")
 })
 
-//setTimeout(() => {
-//  rebootReplit()
-//}, 2700000)
-
-// setTimeout(() => {
-// 	console.debug("LOG: NeedReload:", needReload)
-
-// 	if (needReload) {
-// 		rebootReplit()
-// 	}
-// }, 15000)
-
-// setTimeout(() => {
-// 	if (!logs.includes("CONNECTED")) {
-// 		rebootReplit()
-// 	} else {
-// 		console.debug("LOG: Replit is running")
-// 	}
-// }, 30000)
+setTimeout(() => {
+	console.debug("LOG: NeedReload:", needReload)
+	if (needReload) rebootReplit()
+}, 60000)
 
 rest
 	.put(Routes.applicationCommands(CLIENT_ID), { body: commands })
