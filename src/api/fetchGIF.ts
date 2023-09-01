@@ -4,14 +4,12 @@ import randomNumber from "random"
 import dotenv from "dotenv"
 import axios from "axios"
 
-// Load secrets (Only for local env)
 dotenv.config()
 
 const TENOR_API_KEY = process.env.TENOR_API_KEY
 const TENOR_CLIENT_KEY = process.env.TENOR_CLIENT_KEY
 const GIPHY_API_KEY = process.env.GIPHY_API_KEY
 
-// TENOR
 const fetchTenor = async (query: string) => {
 	const limit = query ? "15" : "30"
 
@@ -37,7 +35,6 @@ const fetchTenor = async (query: string) => {
 	return gifUrls
 }
 
-// GIPHY
 const fetchGiphy = async (query: string) => {
 	const limit = "20"
 

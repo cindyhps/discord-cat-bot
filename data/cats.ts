@@ -265,11 +265,6 @@ export default [
 		tags: "",
 	},
 	{
-		url: "https://i.imgur.com/zDgo6nj.jpeg",
-		category: "catmeme",
-		tags: "",
-	},
-	{
 		url: "https://i.imgur.com/zfIaaQ5.png",
 		category: "catfeels",
 		tags: "",

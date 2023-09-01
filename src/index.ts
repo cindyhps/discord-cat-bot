@@ -11,33 +11,29 @@ import { KeepAlive } from "./server"
 import { commands, helpEmbed } from "./commands"
 import { categories, meows } from "./constants"
 
-// Load secrets (Only for local env)
 dotenv.config()
 
 const TOKEN = process.env.TOKEN || ""
 const CLIENT_ID = process.env.CLIENT_ID || ""
 
 let logs = ""
+const notFound = "Sorry, I couldn't find any images for that tag."
 // let needReload = true
 
-// Create new Client from discord
 const client = new Client({
 	closeTimeout: 60000,
 	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
 })
 
-// Create new REST from discord
 const rest = new REST({ version: "10" }).setToken(TOKEN)
 
 // const rebootReplit = () => execa("kill", ["1"])
 
-// On bot logged in / connected server
 client.on("ready", () => {
 	console.log(`LOG: Bot logged in`)
 	client.user?.setActivity(`the Catnips`, { type: ActivityType.Watching })
 })
 
-// On slash command used
 client.on("interactionCreate", async (interaction) => {
 	if (!interaction.isChatInputCommand()) return
 
@@ -51,11 +47,32 @@ client.on("interactionCreate", async (interaction) => {
 				.then(async () => {
 					const img = fetchCatImage(interaction.options.get("tag"))
 					console.log("REPLY: ", img)
-					interaction.editReply(img)
+					interaction.editReply({
+						files: img ? [img] : undefined,
+						content: img ? undefined : notFound,
+					})
 				})
 				.catch((e) => {
 					console.error(e)
 					saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR2")
+				})
+		}
+
+		////////// CATEGORY //////////
+		if (categories.includes(interaction.commandName)) {
+			await interaction
+				.deferReply()
+				.then(async () => {
+					const img = fetchCatImage(interaction.commandName)
+					console.log("REPLY: ", img)
+					interaction.editReply({
+						files: img ? [img] : undefined,
+						content: img ? undefined : notFound,
+					})
+				})
+				.catch((e) => {
+					console.error(e)
+					saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR5")
 				})
 		}
 
@@ -71,21 +88,6 @@ client.on("interactionCreate", async (interaction) => {
 				.catch((e) => {
 					console.error(e)
 					saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR3")
-				})
-		}
-
-		////////// CATEGORY //////////
-		if (categories.includes(interaction.commandName)) {
-			await interaction
-				.deferReply()
-				.then(async () => {
-					const img = fetchCatImage(interaction.commandName)
-					console.log("REPLY: ", img)
-					await interaction.editReply(img)
-				})
-				.catch((e) => {
-					console.error(e)
-					saveLog(`[${timeStamp.toLocaleString()}] ${e}`, "CODE-ERROR5")
 				})
 		}
 
@@ -148,12 +150,10 @@ client.on("debug", (e) => {
 	console.warn("DEBUG:", e)
 })
 
-// Periodic Reboot
 //setTimeout(() => {
 //  rebootReplit()
 //}, 2700000)
 
-// check loadApplication promise
 // setTimeout(() => {
 // 	console.log("LOG: NeedReload:", needReload)
 
@@ -162,7 +162,6 @@ client.on("debug", (e) => {
 // 	}
 // }, 15000)
 
-// check dc connection promise
 // setTimeout(() => {
 // 	if (!logs.includes("CONNECTED")) {
 // 		rebootReplit()
@@ -171,7 +170,6 @@ client.on("debug", (e) => {
 // 	}
 // }, 30000)
 
-// Load application commands
 const loadApplicationCommands = async () => {
 	try {
 		await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands })
@@ -185,7 +183,6 @@ loadApplicationCommands()
 	.then(() => {
 		// needReload = false
 
-		// login
 		client.login(TOKEN).catch((e) => {
 			console.error(e)
 			saveLog(e, "CLIENT-LOGIN-ERR")
