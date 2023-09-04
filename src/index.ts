@@ -1,5 +1,5 @@
 import { Client, GatewayIntentBits, REST, Routes, ActivityType } from "discord.js"
-import { execa } from "execa"
+// import { execa } from "execa"
 import random from "random"
 import dotenv from "dotenv"
 
@@ -24,7 +24,8 @@ const client = new Client({
 	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
 })
 
-const rebootReplit = () => execa("kill", ["1"]).then(() => execa("yarn", ["start"]))
+// kill 1 && yarn start
+// const rebootReplit = () => execa("kill", ["1"]).then(() => execa("yarn", ["start"]))
 
 client.on("ready", () => {
 	needReload = false
@@ -116,7 +117,7 @@ client.on("warn", (e) => {
 
 setTimeout(() => {
 	console.debug("LOG: NeedReload:", needReload)
-	if (needReload) rebootReplit()
+	// if (needReload) rebootReplit()
 }, 60000)
 
 rest
