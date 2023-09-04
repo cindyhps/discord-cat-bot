@@ -14,7 +14,6 @@ dotenv.config()
 
 const TOKEN = process.env.TOKEN as string
 const CLIENT_ID = process.env.CLIENT_ID as string
-let needReload = true
 
 const rest = new REST({ version: "10" }).setToken(TOKEN)
 
@@ -24,7 +23,6 @@ const client = new Client({
 })
 
 client.on("ready", () => {
-	needReload = false
 	console.debug(`LOG: Bot logged in`)
 	client.user?.setActivity(`the Catnips`, { type: ActivityType.Watching })
 })
