@@ -1,5 +1,4 @@
 import { Client, GatewayIntentBits, REST, Routes, ActivityType } from "discord.js"
-// import { execa } from "execa"
 import random from "random"
 import dotenv from "dotenv"
 
@@ -23,9 +22,6 @@ const client = new Client({
 	closeTimeout: 60000,
 	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
 })
-
-// kill 1 && yarn start
-// const rebootReplit = () => execa("kill", ["1"]).then(() => execa("yarn", ["start"]))
 
 client.on("ready", () => {
 	needReload = false
@@ -115,14 +111,11 @@ client.on("warn", (e) => {
 	saveLog(JSON.stringify(e), "CLIENT-WARN")
 })
 
-setTimeout(() => {
-	console.debug("LOG: NeedReload:", needReload)
-	// if (needReload) rebootReplit()
-}, 60000)
+const initBot = async () => {
+	await rest
+		.put(Routes.applicationCommands(CLIENT_ID), { body: commands })
+		.then(async () => await client.login(TOKEN))
+		.catch((e) => saveLog(e, "LOAD-ERROR"))
+}
 
-rest
-	.put(Routes.applicationCommands(CLIENT_ID), { body: commands })
-	.then(async () => await client.login(TOKEN))
-	.catch((e) => saveLog(e, "LOAD-ERROR"))
-
-KeepAlive()
+initBot().then(() => KeepAlive())
