@@ -1,5 +1,50 @@
 export default [
 	{
+		url: "https://i.pinimg.com/564x/04/2c/61/042c6115133e8a4acf7f2e362ea73659.jpg",
+		category: "catreact, catfeels",
+		tags: "mad, angry, hate",
+	},
+	{
+		url: "https://i.pinimg.com/564x/a1/be/73/a1be7336085896f3747e1e58ad15112b.jpg",
+		category: "catmeme, catreact, catfeels",
+		tags: "isthatso, ohreally, really, sure, yea, yes, yep, youdontsay, waow, ofcourse, mhm, absolutely, indeed, true, truth, facts, fact, damn, wow, suprised",
+	},
+	{
+		url: "https://i.pinimg.com/564x/e9/7b/45/e97b45b904fa189736834377f768e3d8.jpg",
+		category: "catmeme, catreact, catfeels",
+		tags: "suffer, burn, die, pain, weak, evil",
+	},
+	{
+		url: "https://i.pinimg.com/564x/85/b2/b8/85b2b8821014bee011253117a88807de.jpg",
+		category: "catreact, catfeels",
+		tags: "smile, happy, laugh, lmao, lol, haha, funny, fun",
+	},
+	{
+		url: "https://i.pinimg.com/736x/7a/71/a6/7a71a6340eb3ae80e0759db70220ecc4.jpg",
+		category: "catreact, catmeme",
+		tags: "stfu, shutup, shut, up, stop, cutit",
+	},
+	{
+		url: "https://i.pinimg.com/564x/89/4f/15/894f156accbcbff8a5a406a1ba504bb8.jpg",
+		category: "catreact, catcasual, catfeels",
+		tags: "yea, ofcourse, based, mhm, sur",
+	},
+	{
+		url: "https://i.pinimg.com/564x/3b/be/b3/3bbeb349379012a3895ee29248f4cd24.jpg",
+		category: "catreact",
+		tags: "tf, whatthefuck, wtf, bitch, what, ?",
+	},
+	{
+		url: "https://i.pinimg.com/564x/c9/24/5e/c9245e24ae95913b00e91753df83e3b4.jpg",
+		category: "catreact, catfeels, catcasual",
+		tags: "vine",
+	},
+	{
+		url: "https://i.pinimg.com/564x/fd/72/b2/fd72b2dff63534285335efa12210210a.jpg",
+		category: "catreact",
+		tags: "",
+	},
+	{
 		url: "https://i.imgur.com/0LINzxs.jpeg",
 		category: "catlove",
 		tags: "love",
