@@ -4808,10 +4808,5 @@ export default [
 		url: "https://i.pinimg.com/564x/1f/6c/46/1f6c46bbf274850b7934bf3572651e06.jpg",
 		category: "catfeels, catcasual",
 		tags: "omw",
-	},
-	{
-		url: "https://i.pinimg.com/564x/65/15/c3/6515c3db04147d2bf079a82da8cd6c45.jpg",
-		category: "catfeels, catreact",
-		tags: "",
-	},
+	}
 ]
