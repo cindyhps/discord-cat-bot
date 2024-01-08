@@ -1,13 +1,15 @@
 import fs from "fs"
 
+const logPath = "./src/logs.txt"
+
 export const saveLog = (error: string, type: string) => {
-	if (!fs.existsSync(`./src/logs/log-${type}.txt`)) {
-		fs.writeFile(`./src/logs/log-${type}.txt`, "", function (err) {
+	if (!fs.existsSync(logPath)) {
+		fs.writeFile(logPath, `${type}::\n${error}\n`, function (err) {
+			if (err) console.error(err)
+		})
+
+		fs.appendFile(logPath, `${type}::\n${error}\n`, function (err) {
 			if (err) console.error(err)
 		})
 	}
-
-	fs.appendFile(`./src/logs/log-${type}.txt`, `${error}\n`, function (err) {
-		if (err) console.error(err)
-	})
 }
