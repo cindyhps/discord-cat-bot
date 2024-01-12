@@ -11,7 +11,8 @@ export default async function fetchImage(
 	const type = typeof value === "string" ? (categories.includes(value) ? "category" : "tag") : "random"
 
 	const replayRandomImage = async (list: CatImage[]) => {
-		const image = list[list.length === 1 ? 0 : random.int(0, list.length - 1)]?.url
+		console.log(list)
+		const image = list.length === 1 ? list[0]?.url : list[Math.floor(Math.random() * list.length)]?.url
 		console.debug(`[fetchImage:${type}]: ${image}`)
 		await interaction.editReply({ content: image ? image : notFoundIMAGE })
 	}
