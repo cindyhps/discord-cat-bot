@@ -2697,7 +2697,7 @@ export default [
 		source: "https://i.pinimg.com/564x/aa/f8/d3/aaf8d308d68b6af8665020dd84d299bf.jpg",
 		url: "https://i.imgur.com/2UL3r2o.jpg",
 		category: "catreact",
-		tags: "noshit, dont, wait, please",
+		tags: "dont, wait, please",
 	},
 	{
 		source: "https://i.pinimg.com/564x/ab/79/03/ab7903a1289a342462e45183713d0017.jpg",
