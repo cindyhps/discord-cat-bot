@@ -77,10 +77,10 @@ export const helpEmbed = new EmbedBuilder()
 
 export const donateEmbed = new EmbedBuilder()
 	.setColor("#661E84")
-	.setTitle("Buy Catnip")
-	.setDescription("Buy catnip to keep the cat alive!")
+	.setTitle("Buy catnip to keep the cat alive!")
+	.setDescription(donateUrl)
+	.setThumbnail("https://raw.githubusercontent.com/Kaosc/discord-cat-bot/master/assets/catnip.png")
 	.setAuthor({
 		name: "Cat",
 		iconURL: "https://raw.githubusercontent.com/Kaosc/discord-cat-bot/master/assets/cat_128.png",
 	})
-	.setURL(donateUrl)

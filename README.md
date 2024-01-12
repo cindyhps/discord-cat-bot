@@ -14,6 +14,7 @@
 
 | Command                |                        Description                         |
 | ---------------------- | :--------------------------------------------------------: |
+| /buycatnip             |                Buy catnip to keep the cat alive            |
 | /cathelp               |                Lists all available commands                |
 | /catmeow               |          Replies with generated large font "Meow"          |
 | /catmeow [to: "@user"] | Replies to mentioned user with generated large font "Meow" |
