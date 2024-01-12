@@ -7,7 +7,7 @@ import fetchImage from "./api/fetchImage"
 
 import { saveLog } from "./logger"
 import { KeepAlive } from "./server"
-import { commands, helpEmbed } from "./commands"
+import { commands, donateEmbed, helpEmbed } from "./commands"
 import { categories, meows } from "./constants"
 
 dotenv.config()
@@ -77,7 +77,7 @@ client.on("interactionCreate", async (interaction) => {
 					}
 				})
 				.catch((e) => {
-					saveLog(`[${timeStamp}] ${e}`, "CODE-ERROR6")
+					saveLog(`[${timeStamp}] ${e}`, "ERROR6")
 				})
 		}
 
@@ -92,12 +92,27 @@ client.on("interactionCreate", async (interaction) => {
 				})
 				.catch((e) => {
 					console.error(e)
-					saveLog(`[${timeStamp}] ${e}`, "CODE-ERROR7")
+					saveLog(`[${timeStamp}] ${e}`, "ERROR7")
+				})
+		}
+
+		////////// HELP //////////
+		if (interaction.commandName === "buycatnip") {
+			await interaction
+				.deferReply()
+				.then(async () => {
+					await interaction.editReply({
+						embeds: [donateEmbed],
+					})
+				})
+				.catch((e) => {
+					console.error(e)
+					saveLog(`[${timeStamp}] ${e}`, "ERROR8")
 				})
 		}
 	} catch (e) {
 		console.error(e)
-		saveLog(`[${timeStamp}] ${e}`, "CODE-ERROR8")
+		saveLog(`[${timeStamp}] ${e}`, "ERROR8")
 	}
 })
 

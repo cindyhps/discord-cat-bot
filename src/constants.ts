@@ -26,6 +26,7 @@ export const categories = [
 ]
 
 export const commandsList = [
+	{ name: "/buycatnip", value: " " },
 	{ name: "/cat  |  /cat <tag>", value: " " },
 	{ name: "/catgif  |  /catgif <search>", value: " " },
 	{ name: "/catmeow |  /catmeow <@to>", value: " " },
@@ -43,3 +44,5 @@ export const commandsList = [
 export const notFoundGIF = "Sorry, I couldn't find any GIFs for that! 😿"
 export const notFoundIMAGE = "Sorry, I couldn't find any images for that! 😿"
 export const notFoundUSER = "Sorry, I couldn't find the mentioned user! 😿"
+
+export const donateUrl = "https://www.buymeacoffee.com/catbot"

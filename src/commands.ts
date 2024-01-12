@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
-import { commandsList } from "./constants.js"
+import { commandsList, donateUrl } from "./constants.js"
 
 const cat = new SlashCommandBuilder()
 	.setName("cat")
@@ -21,6 +21,14 @@ const catMeow = new SlashCommandBuilder()
 	.addStringOption((subCommand) => subCommand.setName("to").setDescription("The user you want to send"))
 
 export const commands = [
+	{
+		name: "buycatnip",
+		description: "Buy catnip to keep the cat alive",
+	},
+	{
+		name: "cathelp",
+		description: "List all available commands",
+	},
 	cat,
 	catGif,
 	catMeow,
@@ -56,10 +64,6 @@ export const commands = [
 		name: "catedit",
 		description: "Replies with a edited cat image or gif",
 	},
-	{
-		name: "cathelp",
-		description: "List all available commands",
-	},
 ]
 
 export const helpEmbed = new EmbedBuilder()
@@ -70,3 +74,13 @@ export const helpEmbed = new EmbedBuilder()
 		iconURL: "https://raw.githubusercontent.com/Kaosc/discord-cat-bot/master/assets/cat_128.png",
 	})
 	.addFields(commandsList)
+
+export const donateEmbed = new EmbedBuilder()
+	.setColor("#661E84")
+	.setTitle("Buy Catnip")
+	.setDescription("Buy catnip to keep the cat alive!")
+	.setAuthor({
+		name: "Cat",
+		iconURL: "https://raw.githubusercontent.com/Kaosc/discord-cat-bot/master/assets/cat_128.png",
+	})
+	.setURL(donateUrl)
