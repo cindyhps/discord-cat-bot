@@ -1,5 +1,4 @@
 import { CacheType, ChatInputCommandInteraction } from "discord.js"
-import random from "random"
 
 import CatsDB from "../../data/cats"
 import { categories, notFoundIMAGE } from "../constants"
@@ -11,9 +10,8 @@ export default async function fetchImage(
 	const type = typeof value === "string" ? (categories.includes(value) ? "category" : "tag") : "random"
 
 	const replayRandomImage = async (list: CatImage[]) => {
-		console.log(list)
 		const image = list.length === 1 ? list[0]?.url : list[Math.floor(Math.random() * list.length)]?.url
-		console.debug(`[fetchImage:${type}]: ${image}`)
+		// console.debug(`[fetchImage:${type}]: ${image}`)
 		await interaction.editReply({ content: image ? image : notFoundIMAGE })
 	}
 
