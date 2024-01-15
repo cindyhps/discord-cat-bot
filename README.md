@@ -46,6 +46,10 @@
 - The bot uses [Giphy](https://giphy.com/) & [Tenor](https://tenor.com/) API services to provide GIF's.
 - When searching for a gif only enter the related value (e.g /catgif sad).
 
+### Hosted by [Railway](https://railway.app/)
+
 </br>
 
-<a href="https://giphy.com/" target="_blank"><img align="left" src="./assets/giphymark.png" alt="Giphy Logo" style="height: 50px !important;margin-bottom: 30px" ></a>
+<a href="https://www.buymeacoffee.com/catbot" target="_blank"><img align="left" src="./assets/buymeacatnip.png" alt="Giphy Logo" style="height: 100px" ></a>
+
+<a href="https://giphy.com/" target="_blank"><img align="left" src="./assets/giphymark.png" alt="Giphy Logo" style="height: 50px !important;margin-top: 30px" ></a>
