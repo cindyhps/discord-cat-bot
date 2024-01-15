@@ -52,4 +52,6 @@
 
 <a href="https://giphy.com/" target="_blank"><img align="left" src="./assets/giphymark.png" alt="Giphy Logo" style="height: 50px !important;margin-bottom: 30px" ></a>
 
-<a href="https://www.buymeacoffee.com/catbot" target="_blank"><img align="left" src="./assets/buymeacatnip.png" alt="Giphy Logo" style="height: 100px" ></a>
+</br>
+
+<a href="https://www.buymeacoffee.com/catbot" target="_blank"><img align="left" src="./assets/buymeacatnip.png" alt="Giphy Logo" style="height: 100px !important;margin-top: 30px" ></a>
