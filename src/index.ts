@@ -6,7 +6,7 @@ import fetchGIF from "./api/fetchGIF"
 import fetchImage from "./api/fetchImage"
 
 import { saveLog } from "./logger"
-import { KeepAlive } from "./server"
+// import { KeepAlive } from "./server"
 import { commands, donateEmbed, helpEmbed } from "./commands"
 import { categories, meows } from "./constants"
 
@@ -131,4 +131,5 @@ const initBot = async () => {
 		.catch((e) => saveLog(e, "LOAD-ERROR"))
 }
 
-initBot().then(() => KeepAlive())
+initBot()
+// .then(() => KeepAlive())
