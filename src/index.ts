@@ -7,7 +7,7 @@ import fetchImage from "./api/fetchImage"
 
 import { saveLog } from "./logger"
 // import { KeepAlive } from "./server"
-import { commands, donateEmbed, helpEmbed } from "./commands"
+import { commands, donateEmbed, helpEmbed, voteEmbed } from "./commands"
 import { categories, meows } from "./constants"
 
 dotenv.config()
@@ -96,7 +96,7 @@ client.on("interactionCreate", async (interaction) => {
 				})
 		}
 
-		////////// HELP //////////
+		////////// SUPPORT //////////
 		if (interaction.commandName === "buycatnip") {
 			await interaction
 				.deferReply()
@@ -108,6 +108,21 @@ client.on("interactionCreate", async (interaction) => {
 				.catch((e) => {
 					console.error(e)
 					saveLog(`[${timeStamp}] ${e}`, "ERROR8")
+				})
+		}
+
+		////////// VOTE //////////
+		if (interaction.commandName === "catvote") {
+			await interaction
+				.deferReply()
+				.then(async () => {
+					await interaction.editReply({
+						embeds: [voteEmbed],
+					})
+				})
+				.catch((e) => {
+					console.error(e)
+					saveLog(`[${timeStamp}] ${e}`, "ERROR9")
 				})
 		}
 	} catch (e) {
@@ -124,12 +139,12 @@ client.on("warn", (e) => {
 	saveLog(JSON.stringify(e), "CLIENT-WARN")
 })
 
-const initBot = async () => {
+const initializeBot = async () => {
 	await rest
 		.put(Routes.applicationCommands(CLIENT_ID), { body: commands })
 		.then(async () => await client.login(TOKEN))
 		.catch((e) => saveLog(e, "LOAD-ERROR"))
 }
 
-initBot()
+initializeBot()
 // .then(() => KeepAlive())
