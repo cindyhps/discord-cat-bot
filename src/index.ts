@@ -6,9 +6,10 @@ import fetchGIF from "./api/fetchGIF"
 import fetchImage from "./api/fetchImage"
 
 import { saveLog } from "./logger"
-// import { KeepAlive } from "./server"
-import { commands, donateEmbed, helpEmbed, voteEmbed } from "./commands"
+import { donateEmbed, helpEmbed, voteEmbed } from "./embeds"
+import { commands } from "./commands"
 import { categories, meows } from "./constants"
+import cats from "../data/cats"
 
 dotenv.config()
 
@@ -119,6 +120,21 @@ client.on("interactionCreate", async (interaction) => {
 					await interaction.editReply({
 						embeds: [voteEmbed],
 					})
+				})
+				.catch((e) => {
+					console.error(e)
+					saveLog(`[${timeStamp}] ${e}`, "ERROR9")
+				})
+		}
+
+		////////// COUNT //////////
+		if (interaction.commandName === "catcount") {
+			await interaction
+				.deferReply()
+				.then(async () => {
+					const totalCount = cats.length
+					const message = `The total count of cat images is ${totalCount} 🐱`
+					await interaction.editReply({ content: message })
 				})
 				.catch((e) => {
 					console.error(e)

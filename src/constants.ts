@@ -40,6 +40,7 @@ export const commandsList = [
 	{ name: "/catmeme", value: " " },
 	{ name: "/catedit", value: " " },
 	{ name: "/cathelp", value: " " },
+	{ name: "/catcount", value: " " },
 ]
 
 export const notFoundGIF = "Sorry, I couldn't find any GIFs for that! 😿"
@@ -47,4 +48,4 @@ export const notFoundIMAGE = "Sorry, I couldn't find any images for that! 😿"
 export const notFoundUSER = "Sorry, I couldn't find the mentioned user! 😿"
 
 export const donateUrl = "https://www.buymeacoffee.com/catbot"
-export const voteUrl  = "https://top.gg/bot/1052869011366477844/vote"
+export const voteUrl = "https://top.gg/bot/1052869011366477844/vote"
