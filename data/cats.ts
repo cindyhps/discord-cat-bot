@@ -1,6 +1,12 @@
 export default [
 	{
 		source: "",
+		url: "https://i.imgur.com/Wy6L2r7.png",
+		category: "catfeels, catreact",
+		tags: "duck, howdy, bath",
+	},
+	{
+		source: "",
 		url: "https://i.imgur.com/C0HNp2j.jpg",
 		category: "catfeels, catreact",
 		tags: "",
