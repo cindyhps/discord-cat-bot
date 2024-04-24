@@ -14,7 +14,7 @@
 
 | Command                |                        Description                         |
 | ---------------------- | :--------------------------------------------------------: |
-| /buycatnip             |                Buy catnip to keep the cat alive            |
+| /buycatnip             |              Buy catnip to keep the cat alive              |
 | /cathelp               |                Lists all available commands                |
 | /catmeow               |          Replies with generated large font "Meow"          |
 | /catmeow [to: "@user"] | Replies to mentioned user with generated large font "Meow" |
@@ -45,8 +45,6 @@
 
 - The bot uses [Giphy](https://giphy.com/) & [Tenor](https://tenor.com/) API services to provide GIF's.
 - When searching for a gif only enter the related value (e.g /catgif sad).
-
-### Hosted by [Railway](https://railway.app/)
 
 </br>
 
