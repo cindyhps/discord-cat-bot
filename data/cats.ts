@@ -2361,7 +2361,7 @@ export default [
 		source: "https://i.pinimg.com/564x/56/ec/8f/56ec8f8b7bdbeee82b7f2b025f438d1a.jpg",
 		url: "https://i.imgur.com/hTbNfxz.jpg",
 		category: "catedit",
-		tags: "",
+		tags: "damn",
 	},
 	{
 		source: "https://i.pinimg.com/564x/57/fa/6d/57fa6d228a5f8b9f4d913ae147fcd510.jpg",
