@@ -1,5 +1,83 @@
 export default [
 	{
+		source: "https://pbs.twimg.com/media/GMLucahWQAAI2Oo?format=jpg&name=900x900",
+		url: "https://i.imgur.com/wP2By1D.jpg",
+		category: "catfeels, catcasual",
+		tags: "hungry, eat, food, snack, meal",
+	},
+	{
+		source: "https://pbs.twimg.com/media/GMCk6CcXwAEtz06?format=jpg&name=small",
+		url: "https://i.imgur.com/w1fwB7Z.jpg",
+		category: "catfeels",
+		tags: "lonely, alone, sad, depressed, cry, tired, hurt, broken, teddybear, stare",
+	},
+	{
+		source: "https://pbs.twimg.com/media/GMBpe5bW8AASesv?format=png&name=small",
+		url: "https://i.imgur.com/CoEWads.png",
+		category: "catreact",
+		tags: "A, scream, yell, fuck, cry",
+	},
+	{
+		source: "https://pbs.twimg.com/media/GL7ogv9XsAAKLZ9?format=jpg&name=small",
+		url: "https://i.imgur.com/JT2UnbZ.jpg",
+		category: "catmental",
+		tags: "",
+	},
+	{
+		source: "https://pbs.twimg.com/media/GL3AY1_W8AAcFsl?format=png&name=small",
+		url: "https://i.imgur.com/CxNv0jH.png",
+		category: "catreact",
+		tags: "attack, mad, fight, kickass",
+	},
+	{
+		source: "https://twitter.com/DontShowYourCat/status/1782429953889382742",
+		url: "https://i.imgur.com/zUZtNtm.png",
+		category: "catcasual, catmental",
+		tags: "lethimcook, oven, cooking",
+	},
+	{
+		source: "https://pbs.twimg.com/media/GLoZAd6WIAASS--?format=jpg&name=small",
+		url: "https://i.imgur.com/iXdlG1w.jpg",
+		category: "catreact, catfeels",
+		tags: "hungry, nuddle, spagetti, makarino, eat, food",
+	},
+	{
+		source: "https://twitter.com/DontShowYourCat/status/1785121631934845326",
+		url: "https://i.imgur.com/QAzoZAn.png",
+		category: "catmeme",
+		tags: "catshavestaff",
+	},
+	{
+		source: "https://twitter.com/DontShowYourCat/status/1786032384170676514",
+		url: "https://i.imgur.com/5l8emQ6.png",
+		category: "catcasual",
+		tags: "wedding",
+	},
+	{
+		source: "https://twitter.com/PostsOfCats/status/1786119807399501922",
+		url: "https://i.imgur.com/LHt44O8.mp4",
+		category: "catreact, catcasual, catmental",
+		tags: "snif, sniffa",
+	},
+	{
+		source: "https://pbs.twimg.com/media/GMjOdBNbYAAUYJ3?format=jpg&name=900x900",
+		url: "https://i.imgur.com/pK9xyhR.jpg",
+		category: "catcasual",
+		tags: "angry, mad",
+	},
+	{
+		source: "https://twitter.com/i/status/1785947333278019878",
+		url: "https://i.imgur.com/hwm0PqI.mp4",
+		category: "catcasual catmental",
+		tags: "gif, video",
+	},
+	{
+		source: "https://twitter.com/i/status/1786171360223375861",
+		url: "https://i.imgur.com/r0Kwty4.mp4",
+		category: "catfeels, catreact",
+		tags: "gif, video",
+	},
+	{
 		source: "",
 		url: "https://i.imgur.com/Wy6L2r7.png",
 		category: "catfeels, catreact",
