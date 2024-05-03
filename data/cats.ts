@@ -1,5 +1,11 @@
 export default [
 	{
+		source: "https://pbs.twimg.com/media/GMlG1coXQAACpvg?format=jpg&name=medium",
+		url: "https://i.imgur.com/uhQtPkF.jpg",
+		category: "catcasual",
+		tags: "haircut",
+	},
+	{
 		source: "https://pbs.twimg.com/media/GMLucahWQAAI2Oo?format=jpg&name=900x900",
 		url: "https://i.imgur.com/wP2By1D.jpg",
 		category: "catfeels, catcasual",
