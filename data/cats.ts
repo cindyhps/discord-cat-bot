@@ -1,5 +1,11 @@
 export default [
 	{
+		source: "https://twitter.com/i/status/1791358741616771136",
+		url: "https://i.imgur.com/QixaDMf.png",
+		category: "catcasual, catmental",
+		tags: "eat, food, snack, meal, eating, milk",
+	},
+	{
 		source: "https://pbs.twimg.com/media/GMlG1coXQAACpvg?format=jpg&name=medium",
 		url: "https://i.imgur.com/uhQtPkF.jpg",
 		category: "catcasual",
