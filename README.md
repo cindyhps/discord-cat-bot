@@ -43,7 +43,7 @@
 
 #### Additional Notes:
 
-- The bot uses [Giphy](https://giphy.com/), [CatAPI] thecatapi.com [Tenor](https://tenor.com/) API services to provide GIF's.
+- The bot uses [Giphy](https://giphy.com/), thecatapi.com [Tenor](https://tenor.com/) API services to provide GIF's.
 - When searching for a gif only enter the related value (e.g /catgif sad).
 
 </br>
